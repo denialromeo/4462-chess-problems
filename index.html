@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Spare Pieces Example</title>
+
+  <link rel="stylesheet" href="css/chessboard.css" />
+</head>
+<body>
+<!-- start example HTML --->
+<div id="board" style="width: 400px"></div>
+<input type="button" id="startBtn" value="Start" />
+<input type="button" id="clearBtn" value="Clear" />
+<!-- end example HTML --->
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="js/chessboard.js"></script>
+<script>
+var init = function() {
+
+//--- start example JS ---
+var board = ChessBoard('board', {
+  draggable: true,
+  dropOffBoard: 'trash',
+  sparePieces: true
+});
+
+$('#startBtn').on('click', board.start);
+$('#clearBtn').on('click', board.clear);
+//--- end example JS ---
+
+}; // end init()
+$(document).ready(init);
+</script>
+</body>
+</html>
