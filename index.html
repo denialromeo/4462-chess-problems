@@ -1,50 +1,16 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Chess Puzzles</title>
+    <head>
+        <meta charset="utf-8" />
+        <title>Chess Puzzle Recorder</title>
+        <link rel="stylesheet" href="display/chessboard.css" />
+    </head>
+    <body>
+        <div id="board" style="width: 400px"></div>
+        <input type="button" id="startBtn" value="Start" />
+        <input type="button" id="clearBtn" value="Clear" />
+        <input type="button" id="recordBtn" value="Start Recording" />
 
-  <link rel="stylesheet" href="css/chessboard.css" />
-</head>
-<body>
-<!-- start example HTML --->
-<div id="board" style="width: 400px"></div>
-<input type="button" id="startBtn" value="Start" />
-<input type="button" id="clearBtn" value="Clear" />
-<input type="button" id="recordBtn" value="Start Recording" />
-<!-- end example HTML --->
-
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="js/chessboard.js"></script>
-<script>
-var init = function() {
-
-//--- start example JS ---
-var board = ChessBoard('board', {
-  draggable: true,
-  dropOffBoard: 'trash',
-  sparePieces: true,
-  onChange: function(oldPos, newPos) { if (document.recording) { console.log(ChessBoard.objToFen(newPos)); } }
-});
-
-$('#startBtn').on('click', board.start);
-$('#clearBtn').on('click', board.clear);
-$('#recordBtn').on('click', function() {
-  if (document.recording) {
-    this.value="Start Recording";
-    document.recording=false;
-  }
-  else {
-    console.log(board.fen());
-    this.value="Stop Recording";
-    document.recording = true;
-  }
-});
-//--- end example JS ---
-
-}; // end init()
-$(document).ready(init);
-</script>
-</body>
+        <script src="dist/chess-puzzle-recorder.js"></script>
+    </body>
 </html>

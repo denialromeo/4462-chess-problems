@@ -1,0 +1,31 @@
+{
+  "name": "chess-puzzle-recorder",
+  "version": "1.0.0",
+  "description": "Improve your game!",
+  "scripts": {
+    "start": "webpack && webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denialromeo/4462-chess-problems.git"
+  },
+  "author": "Daniel Moore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denialromeo/4462-chess-problems/issues"
+  },
+  "homepage": "https://github.com/denialromeo/4462-chess-problems#readme",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jquery": "^3.3.1",
+    "urijs": "^1.19.1",
+    "webpack": "^4.16.5"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.10"
+  }
+}

@@ -8,9 +8,8 @@
  * Date: 10 Aug 2013
  */
 
-// start anonymous scope
-;(function() {
-'use strict';
+const $ = require("jquery");
+const img_dir = "display/img/"
 
 //------------------------------------------------------------------------------
 // Chess Util Functions
@@ -442,7 +441,7 @@ function expandConfig() {
   if (cfg.hasOwnProperty('pieceTheme') !== true ||
       (typeof cfg.pieceTheme !== 'string' &&
        typeof cfg.pieceTheme !== 'function')) {
-    cfg.pieceTheme = 'img/chesspieces/wikipedia/{piece}.png';
+    cfg.pieceTheme = `${img_dir}{piece}.png`;
   }
 
   // animation speeds
@@ -1689,8 +1688,7 @@ function initDom() {
 }
 
 function init() {
-  if (checkDeps() !== true ||
-      expandConfig() !== true) return;
+  if (checkDeps() !== true || expandConfig() !== true) return;
 
   // create unique IDs for all the elements we will create
   createElIds();
@@ -1711,4 +1709,7 @@ return widget;
 window.ChessBoard.fenToObj = fenToObj;
 window.ChessBoard.objToFen = objToFen;
 
-})(); // end anonymous wrapper
+// Exports
+Object.assign(exports, {
+    ChessBoard: ChessBoard
+})
