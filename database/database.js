@@ -1,7 +1,7 @@
 const { Database } = require("sqlite3")
 
 const db = new Database("./problems.db")
-db.exec("pragma foreign_keys=ON;")
+db.exec("pragma foreign_keys=ON")
 
 function commitProblem(problemid, author, type, firstmove, fens) {
     db.exec(`insert into problems values(${problemid}, "${author}", "${type}", "${firstmove}")`)
