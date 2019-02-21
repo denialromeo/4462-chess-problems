@@ -8,8 +8,7 @@
  * Date: 10 Aug 2013
  */
 
-const $ = require("jquery");
-const img_dir = "display/img/"
+const img_dir = "/img/"
 
 //------------------------------------------------------------------------------
 // Chess Util Functions
@@ -1708,8 +1707,3 @@ return widget;
 // expose util functions
 window.ChessBoard.fenToObj = fenToObj;
 window.ChessBoard.objToFen = objToFen;
-
-// Exports
-Object.assign(exports, {
-    ChessBoard: ChessBoard
-})

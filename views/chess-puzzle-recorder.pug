@@ -1,0 +1,38 @@
+html
+	head
+		title Chess Puzzle Recorder
+		style
+			include chessboard.css
+	body
+		div(id="board", style="width:400px")
+		br
+		input(type="button", id="startBtn", value="Starting Position")
+		input(type="button", id="clearBtn", value="Clear Board")
+		br
+		br
+		form(method="post", action="/", onsubmit="submitForm()", style="font-family:Courier")
+			input(type="button", id="recordBtn", value="Start Recording")
+			input(type="submit", id="commitBtn", value="Commit Problem", style="display: none")
+			br
+			br
+			input(style="display:none", id="fens", name="fens")
+			div
+				label(for="problemid") Problem #: 
+				input(type="text", id="problemid", name="problemid", required)
+				label(for="firstmove") &nbsp;&nbsp;First To Move: 
+				select(id="firstmove" name="firstmove")
+					option(value="White") White
+					option(value="Black") Black
+			div
+				label(for="author") &nbsp;&nbsp;&nbsp;Author: 
+				input(type="text", id="author", name="author", value="Polgar")
+				label(for="type") &nbsp;&nbsp;Type: 
+				select(id="type" name="type")
+					option(value="Mate In Two") Mate In Two
+					option(value="Mate In One") Mate In One
+					option(value="Mate In Three") Mate In Three
+		script(src="https://code.jquery.com/jquery-3.3.1.min.js")
+		script
+			include chessboard.js
+		script
+			include display.js
