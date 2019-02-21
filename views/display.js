@@ -11,6 +11,7 @@ function validateForm() {
 
 function submitForm() {
     if (validateForm()) {
+        document.recording = false
         document.getElementById("fens").value = fens
         document.querySelector("#recordBtn").style=""
         document.querySelector("#commitBtn").style="display:none"
@@ -25,12 +26,13 @@ const board = ChessBoard('board', {
     draggable: true,
     dropOffBoard: 'trash',
     sparePieces: true,
-    onChange: function(oldPos, newPos) { fens.push(ChessBoard.objToFen(newPos)) }
+    onChange: function(oldPos, newPos) { if(document.recording) { fens.push(ChessBoard.objToFen(newPos)) } }
 })
 
 document.querySelector("#startBtn").onclick = board.start
 document.querySelector("#clearBtn").onclick = board.clear
 document.querySelector("#recordBtn").onclick = function() {
+    document.recording = true
     document.querySelector("#recordBtn").style="display:none"
     document.querySelector("#commitBtn").style=""
     fens.push(board.fen())
