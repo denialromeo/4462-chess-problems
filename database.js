@@ -13,6 +13,12 @@ function deleteProblem(problemid) {
     db.exec(`delete from problems where problemid=${problemid}`)
 }
 
+function printAllData() {
+    db.all(`select problems.problemid, author, type, firstmove, move, fen
+            from problems join moves on problems.problemid=moves.problemid
+            order by problems.problemid, move`, (err,rows)=>console.log(JSON.stringify(rows)))
+}
+
 function getMoves(problemid, complete) {
     let moves = []
     db.each(`select fen from moves where problemid=${problemid} order by move`, (err,row) => moves.push(row.fen), complete)
@@ -22,5 +28,6 @@ function getMoves(problemid, complete) {
 Object.assign(exports, {
     commitProblem: commitProblem,
     deleteProblem: deleteProblem,
-    getMoves: getMoves
+    getMoves: getMoves,
+    printAllData: printAllData
 })
