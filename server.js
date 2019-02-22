@@ -17,7 +17,6 @@ app.post('/', function(req, res) {
     fens = fens.split(',')
     commitProblem(problemid, author, type, firstmove, fens)
     let moves = getMoves(problemid, () => console.log(moves))
-    deleteProblem(problemid)
 })
 
 app.listen(8000)
