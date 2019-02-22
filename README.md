@@ -4,10 +4,29 @@ In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%
 
 In a bid to improve my own game, I plan to work through these problems at a languid pace, updating a simple database file as I go along. This will also likely be of value to other chess enthusiasts.
 
-I'm not sure if this project violates copyright. Since many of these problems were taken by Polgár from other sources and I haven't explicitly copied anything from the book, my guess is no.
+I hope this project doesn't violate copyright. I consider it merely notes that I'm taking as I read. Please buy the book!
+
+### Development Guide
+
+This project has two apps -- a chess puzzle recorder and a chess puzzle player.
+
+The recorder allows you to record a problem and commit it to a database file, while the player uses the information in the database to let the user play the puzzle.
+
+To get going with the recorder, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
+
+```
+git clone https://github.com/denialromeo/4462-chess-problems
+cd 4462-chess-problems\chess-puzzle-recorder
+npm install
+npm start
+```
+
+Now you can record puzzles at [http://localhost:8000](http://localhost:8000)!
+
+Run `database2json` to transfer the database to a JSON file the player can use.
+
+The player is still under construction.
 
 **Acknowledgements**
 
 Special thanks to Chris Oakman for his wonderful 2013 [chessboard.js](http://chessboardjs.com).
-
-And thanks to you, Mr. Polgár! Please don't sue me! I mean well!
