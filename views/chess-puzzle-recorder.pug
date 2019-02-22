@@ -1,8 +1,7 @@
 html
 	head
 		title Chess Puzzle Recorder
-		style
-			include chessboard.css
+		link(href="/static/css/chessboard.css", rel="stylesheet")
 	body
 		div(id="board", style="width:400px")
 		br
@@ -32,7 +31,5 @@ html
 					option(value="Mate In One") Mate In One
 					option(value="Mate In Three") Mate In Three
 		script(src="https://code.jquery.com/jquery-3.3.1.min.js")
-		script
-			include chessboard.js
-		script
-			include display.js
+		script(src="/static/js/chessboard.js")
+		script(src="/static/js/display.js")

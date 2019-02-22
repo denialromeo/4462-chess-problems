@@ -6,7 +6,7 @@ const { commitProblem, getMoves, deleteProblem } = require('./database.js');
 
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
-app.use("/img", express.static(__dirname + '/img'))
+app.use("/static", express.static(__dirname + '/static'))
 app.use(bodyparser.urlencoded({ extended: true }))
 
 app.get('/', function(req, res) {
