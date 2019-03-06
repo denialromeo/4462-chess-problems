@@ -8,9 +8,9 @@ I hope this project doesn't violate copyright. I consider it merely notes that I
 
 ### Development Guide
 
-This project has two apps -- a chess puzzle recorder and a chess puzzle player.
+This project has two parts - a chess puzzle recorder and a chess puzzle player.
 
-The recorder allows you to record a problem and commit it to a database file, while the player uses the information in the database to let the user play the puzzle.
+The recorder allows you to record a problem and commit it to a database file, while the puzzle player uses the information in the database file to let the user play the puzzle.
 
 To get going with the recorder, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
 
@@ -23,10 +23,10 @@ npm start
 
 Now you can record puzzles at [http://localhost:8000](http://localhost:8000)!
 
-Run `database2json` to transfer the database to a JSON file the player can use.
+Run `database2json.bat` to transfer the database to a JSON file the puzzle player can use.
 
-The player is still under construction.
+The puzzle player is still under construction.
 
-**Acknowledgements**
+### Acknowledgments
 
 Special thanks to Chris Oakman for his wonderful 2013 [chessboard.js](http://chessboardjs.com).
