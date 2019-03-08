@@ -16,4 +16,4 @@ for (let i = 0; i < movesJson.length; i++) {
     }
 }
 moves.push(builder)
-console.log(JSON.stringify({"moves": moves.slice(1)}))
+console.log(JSON.stringify({"problems": moves.slice(1)}))
