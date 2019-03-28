@@ -1,5 +1,4 @@
-@echo { "moves": > problems.json
+@echo { "problems": > problems.json
 @node -e "const{printAllData}=require('./database.js');printAllData();" >> problems.json
 @echo } >> problems.json
-@node simplify-json > ..\chess-puzzle-player\problems.json
-@del problems.json
+@move problems.json ..\chess-puzzle-player\problems.json

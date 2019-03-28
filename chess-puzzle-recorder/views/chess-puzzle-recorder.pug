@@ -14,22 +14,21 @@ html
 			input(type="submit", id="commitBtn", value="Commit Problem", style="display: none")
 			br
 			br
-			input(style="display:none", id="fens", name="fens")
+			input(style="display:none", id="fen", name="fen")
+			input(style="display:none", id="moves", name="moves")
 			div
 				label(for="problemid") Problem #: 
 				input(type="text", id="problemid", name="problemid", required)
-				label(for="firstmove") &nbsp;&nbsp;First to Move:
-				select(id="firstmove" name="firstmove")
-					option(value="White") White
-					option(value="Black") Black
+				label(for="first") &nbsp;&nbsp;First to Move:&nbsp;
+				select(id="first" name="first")
+					option(value="White to move") White
+					option(value="Black to move") Black
 			div
-				label(for="author") &nbsp;&nbsp;&nbsp;Author: 
-				input(type="text", id="author", name="author", value="Polgár")
-				label(for="type") &nbsp;&nbsp;Type: 
+				label(for="type") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type: 
 				select(id="type" name="type")
-					option(value="Mate In Two") Mate in Two
-					option(value="Mate In One") Mate in One
-					option(value="Mate In Three") Mate in Three
+					option(value="Mate in one") Mate in One
+					option(value="Mate in three") Mate in Three
+					option(value="Mate in two") Mate in Two
 		script(src="https://code.jquery.com/jquery-3.3.1.min.js")
 		script(src="/static/js/chessboard.js")
 		script(src="/static/js/display.js")

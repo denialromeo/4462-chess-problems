@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 
-const { commitProblem, getMoves, deleteProblem } = require('./database.js');
+const { commitProblem } = require('./database.js');
 
 const app = express();
 app.set('view engine', 'pug')
@@ -14,10 +14,9 @@ app.get('/', function(req, res) {
 })
 
 app.post('/', function(req, res) {
-    var { fens, problemid, firstmove, author, type } = req.body
-    fens = fens.split(',')
-    commitProblem(problemid, author, type, firstmove, fens)
-    let moves = getMoves(problemid, () => console.log(moves))
+    var { problemid, first, type, fen, moves } = req.body
+    console.log(problemid, first, type, fen, moves)
+    // commitProblem(problemid, type, first, fen, moves)
 })
 
 app.listen(8000)

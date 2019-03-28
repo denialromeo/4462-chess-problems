@@ -1,4 +1,4 @@
-var fens = []
+var moves = []
 
 function validateForm() {
     const problemid = document.getElementById("problemid").value
@@ -12,10 +12,10 @@ function validateForm() {
 function submitForm() {
     if (validateForm()) {
         document.recording = false
-        document.getElementById("fens").value = fens
+        document.getElementById("moves").value = moves.join(";")
         document.querySelector("#recordBtn").style=""
         document.querySelector("#commitBtn").style="display:none"
-        fens = []
+        moves = []
     }
     else {
         event.preventDefault()
@@ -26,7 +26,7 @@ const board = ChessBoard('board', {
     draggable: true,
     dropOffBoard: 'trash',
     sparePieces: true,
-    onChange: function(oldPos, newPos) { if(document.recording) { fens.push(ChessBoard.objToFen(newPos)) } }
+    onDrop: function(source, target, piece, newPos, oldPos, orientation) { moves.push(source + "-" + target) }
 })
 
 document.querySelector("#startBtn").onclick = board.start
@@ -35,5 +35,5 @@ document.querySelector("#recordBtn").onclick = function() {
     document.recording = true
     document.querySelector("#recordBtn").style="display:none"
     document.querySelector("#commitBtn").style=""
-    fens.push(board.fen())
+    document.getElementById("fen").value = board.fen()
 }

@@ -23,10 +23,20 @@ npm start
 
 Now you can record puzzles at [http://localhost:8000](http://localhost:8000)!
 
-Run `database2json.bat` to transfer the database to a JSON file the puzzle player can use.
+Run `output-json.bat` to transfer the database to a JSON file the puzzle player can use.
 
-The puzzle player is still under construction.
+To get going with the puzzle player, run -
+
+```
+cd ..\chess-puzzle-player
+npm install
+npm start
+```
+
+Everything here is still very much under construction. I don't recommend using it in the present state. Expect much to change.
 
 ### Acknowledgments
 
 Special thanks to Chris Oakman for his wonderful 2013 [chessboard.js](http://chessboardjs.com).
+
+Special thanks as well to the elusive F.T. Horde, from whose [mateintwo](https://github.com/manyids2/mateintwo) I procured 1,437 solutions and 1,975 more problem transcriptions.
