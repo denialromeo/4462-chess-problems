@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 
 app.post('/', function(req, res) {
     var { problemid, first, type, fen, moves } = req.body
-    console.log(problemid, first, type, fen, moves)
+    console.log(problemid, type, first, fen, moves)
     // commitProblem(problemid, type, first, fen, moves)
 })
 
