@@ -11,7 +11,7 @@ function init() {
         dropOffBoard: 'snapback',
     });
 
-    document.querySelector("#startBtn").onclick = function() { board.move(moves[0]); moves.shift() }
+    document.querySelector("#nextBtn").onclick = function() { board.move(moves[0]); moves.shift() }
 }
 
 // Exports
