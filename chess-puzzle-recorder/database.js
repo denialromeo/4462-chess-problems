@@ -8,6 +8,10 @@ function commitProblem(problemid, type, first, fen, moves, solved) {
     db.exec(`insert into problems values(${problemid}, "${type}", "${first}", "${fen}", "${moves}", ${solved})`)
 }
 
+function nextUnsolved(complete) {
+    db.get(`select problemid, type, first, fen, moves from problems where solved=0 order by problemid`, complete)
+}
+
 function printSolved() {
     db.all(`select problemid, type, first, fen, moves from problems where solved=1 order by problemid`, (err,rows) => console.log(JSON.stringify(rows)))
 }
@@ -18,6 +22,7 @@ function printUnsolved() {
 
 Object.assign(exports, {
     commitProblem: commitProblem,
+    nextUnsolved: nextUnsolved,
     printSolved: printSolved,
     printUnsolved: printUnsolved,
 })
