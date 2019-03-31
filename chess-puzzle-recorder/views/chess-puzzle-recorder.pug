@@ -1,7 +1,7 @@
 html
     head
         title Chess Puzzle Recorder
-        link(href="/static/css/chessboard.css", rel="stylesheet")
+        link(href="/chessboard/css/chessboard.css", rel="stylesheet")
     body
         div(id="board", style="width:400px")
         br
@@ -16,7 +16,7 @@ html
             input(style="display:none", id="first", name="first")
             input(style="display:none", id="type", name="type")
         script(src="https://code.jquery.com/jquery-3.3.1.min.js")
-        script(src="/static/js/chessboard.js")
+        script(src="/chessboard/js/chessboard.js")
         script.
             document.querySelector("#problemid").value = "#{problemid}"
             document.querySelector("#first").value = "#{first}"

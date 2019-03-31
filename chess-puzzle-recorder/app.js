@@ -6,7 +6,7 @@ const { commitProblem, nextUnsolved } = require('./database.js')
 const app = express();
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
-app.use("/static", express.static(__dirname + '/static'))
+app.use("/chessboard", express.static(__dirname + '/chessboard'))
 app.use(bodyparser.urlencoded({ extended: true }))
 
 app.get('/', function(req, res) {

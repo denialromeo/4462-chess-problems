@@ -8,7 +8,7 @@
  * Date: 10 Aug 2013
  */
 
-const img_dir = "/static/img/"
+const img_dir = "/chessboard/img/"
 
 //------------------------------------------------------------------------------
 // Chess Util Functions
