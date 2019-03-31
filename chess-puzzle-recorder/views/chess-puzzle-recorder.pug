@@ -1,34 +1,63 @@
 html
-	head
-		title Chess Puzzle Recorder
-		link(href="/static/css/chessboard.css", rel="stylesheet")
-	body
-		div(id="board", style="width:400px")
-		br
-		input(type="button", id="startBtn", value="Starting Position")
-		input(type="button", id="clearBtn", value="Clear Board")
-		br
-		br
-		form(method="post", action="/", onsubmit="submitForm()", style="font-family:Courier")
-			input(type="button", id="recordBtn", value="Start Recording")
-			input(type="submit", id="commitBtn", value="Commit Problem", style="display: none")
-			br
-			br
-			input(style="display:none", id="fen", name="fen")
-			input(style="display:none", id="moves", name="moves")
-			div
-				label(for="problemid") Problem #: 
-				input(type="text", id="problemid", name="problemid", required)
-				label(for="first") &nbsp;&nbsp;First to Move:&nbsp;
-				select(id="first" name="first")
-					option(value="White to move") White
-					option(value="Black to move") Black
-			div
-				label(for="type") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type: 
-				select(id="type" name="type")
-					option(value="Mate in one") Mate in One
-					option(value="Mate in three") Mate in Three
-					option(value="Mate in two") Mate in Two
-		script(src="https://code.jquery.com/jquery-3.3.1.min.js")
-		script(src="/static/js/chessboard.js")
-		script(src="/static/js/display.js")
+    head
+        title Chess Puzzle Recorder
+        link(href="/static/css/chessboard.css", rel="stylesheet")
+    body
+        div(id="board", style="width:400px")
+        br
+        form(method="post", action="/", onsubmit="submitForm()", style="font-family:Courier")
+            input(type="button", id="recordBtn", value="Start Recording")
+            input(type="submit", id="commitBtn", value="Commit Problem", style="display: none")
+            br
+            br
+            input(style="display:none", id="fen", name="fen")
+            input(style="display:none", id="moves", name="moves")
+            input(style="display:none", id="problemid", name="problemid")
+            input(style="display:none", id="first", name="first")
+            input(style="display:none", id="type", name="type")
+        script(src="https://code.jquery.com/jquery-3.3.1.min.js")
+        script(src="/static/js/chessboard.js")
+        script.
+            document.querySelector("#problemid").value = "#{problemid}"
+            document.querySelector("#first").value = "#{first}"
+            document.querySelector("#type").value = "#{type}"
+            console.log("#{moves}")
+
+            var moves = []
+
+            function validateForm() {
+                const problemid = document.getElementById("problemid").value
+                if (isNaN(problemid) || Number(problemid) > 4462 || Number(problemid) < 1) {
+                    window.alert("Error: Invalid Problem #. Must be between 1-4462.")
+                    return false
+                }
+                return true
+            }
+
+            function submitForm() {
+                if (validateForm()) {
+                    document.recording = false
+                    document.getElementById("moves").value = moves.join(";")
+                    document.querySelector("#recordBtn").style=""
+                    document.querySelector("#commitBtn").style="display:none"
+                    moves = []
+                }
+                else {
+                    event.preventDefault()
+                }
+            }
+
+            const board = ChessBoard('board', {
+                draggable: true,
+                position: "#{fen}",
+                dropOffBoard: 'snapback',
+                sparePieces: true,
+                onDrop: function(source, target, piece, newPos, oldPos, orientation) { if (document.recording) { moves.push(source + "-" + target) } }
+            })
+
+            document.querySelector("#recordBtn").onclick = function() {
+                document.recording = true
+                document.querySelector("#recordBtn").style="display:none"
+                document.querySelector("#commitBtn").style=""
+                document.getElementById("fen").value = board.fen()
+            }

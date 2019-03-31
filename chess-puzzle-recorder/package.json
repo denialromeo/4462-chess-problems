@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Allows recording of chess puzzles for future study.",
   "scripts": {
-    "start": "node app.js"
+    "start": "output-recorder-json.bat && node app.js"
   },
   "repository": {
     "type": "git",
