@@ -3,7 +3,6 @@ const bodyparser = require('body-parser')
 const request = require('request')
 
 const { commitProblem } = require('./database.js')
-const { unsolved } = require('./unsolved.json')
 
 const app = express();
 app.set('view engine', 'pug')
@@ -12,6 +11,7 @@ app.use("/static", express.static(__dirname + '/static'))
 app.use(bodyparser.urlencoded({ extended: true }))
 
 app.get('/', function(req, res) {
+    const { unsolved } = require('./unsolved.json')
     res.render("chess-puzzle-recorder", unsolved[0])
 })
 
