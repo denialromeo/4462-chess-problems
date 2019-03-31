@@ -37,6 +37,6 @@ Everything here is still very much under construction. I don't recommend using i
 
 ### Acknowledgments
 
-Special thanks to Chris Oakman for his wonderful 2013 [chessboard.js](http://chessboardjs.com).
+Special thanks to Chris Oakman for his sublime, exquisitely documented 2013 [chessboard.js](http://chessboardjs.com).
 
-Special thanks as well to the elusive F.T. Horde, from whose [mateintwo](https://github.com/manyids2/mateintwo) I procured 1,437 solutions and 1,975 more problem transcriptions.
+Special thanks as well to the elusive F.T. Horde, from whose [mateintwo](https://github.com/manyids2/mateintwo) I procured 1,437 solutions and 1,975 questions. Without their work, this project would probably have been abandoned.

@@ -17,7 +17,10 @@ html
             input(style="display:none", id="type", name="type")
         script(src="https://code.jquery.com/jquery-3.3.1.min.js")
         script(src="/chessboard/chessboard.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js")
         script.
+            game = new Chess()
+
             document.querySelector("#problemid").value = "#{problemid}"
             document.querySelector("#first").value = "#{first}"
             document.querySelector("#type").value = "#{type}"
@@ -60,5 +63,6 @@ html
                 document.recording = true
                 document.querySelector("#recordBtn").style="display:none"
                 document.querySelector("#commitBtn").style=""
-                document.getElementById("fen").value = board.fen()
+                board.position("#{fen}")
+                document.getElementById("fen").value = "#{fen}"
             }
