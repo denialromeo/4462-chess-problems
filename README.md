@@ -1,6 +1,6 @@
-## 4462 Chess Problems
+## 3412 Chess Problems
 
-In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess*](https://www.amazon.com/Chess-5334-Problems-Combinations-Games/dp/1579129501/ref=tmm_hrd_swatch_0), a compilation of 4,462 checkmate problems.
+In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess*](https://www.amazon.com/Chess-5334-Problems-Combinations-Games/dp/1579129501/ref=tmm_hrd_swatch_0).
 
 In a bid to improve my own game, I plan to work through these problems at a languid pace, updating a simple database file as I go along. This will also likely be of value to other chess enthusiasts.
 
@@ -15,8 +15,8 @@ The recorder allows you to record a problem and commit it to a database file, wh
 To get going with the recorder, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
 
 ```
-git clone https://github.com/denialromeo/4462-chess-problems
-cd 4462-chess-problems\chess-puzzle-recorder
+git clone https://github.com/denialromeo/3412-chess-problems
+cd 3412-chess-problems\chess-puzzle-recorder
 npm install
 npm start
 ```
