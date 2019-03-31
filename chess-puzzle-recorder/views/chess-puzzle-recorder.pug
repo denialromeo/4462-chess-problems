@@ -19,7 +19,7 @@ html
         script(src="/chessboard/chessboard.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js")
         script.
-            game = new Chess()
+            game = new Chess(`${"#{fen}"} ${"#{first}".startsWith("W") ? "w" : "b"} - - 0 1`)
 
             document.querySelector("#problemid").value = "#{problemid}"
             document.querySelector("#first").value = "#{first}"
@@ -30,9 +30,8 @@ html
             var moves = []
 
             function validateForm() {
-                const problemid = document.getElementById("problemid").value
-                if (isNaN(problemid) || Number(problemid) > 4462 || Number(problemid) < 1) {
-                    window.alert("Error: Invalid Problem #. Must be between 1-4462.")
+                if (game.in_checkmate() !== true) {
+                    window.alert("Error: Game is not in checkmate. Refresh page and try again!")
                     return false
                 }
                 return true
@@ -56,7 +55,14 @@ html
                 position: "#{fen}",
                 dropOffBoard: 'snapback',
                 sparePieces: true,
-                onDrop: function(source, target, piece, newPos, oldPos, orientation) { if (document.recording) { moves.push(source + "-" + target) } }
+                onDrop: function(source, target) {
+                    if (document.recording) {
+                        if (game.move({"from": source, "to": target, "promotion": "q"}) === null) {
+                            return "snapback"
+                        }
+                        moves.push(source + "-" + target)
+                    }
+                }
             })
 
             document.querySelector("#recordBtn").onclick = function() {
