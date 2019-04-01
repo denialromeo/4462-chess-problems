@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Improve your game!",
   "scripts": {
-    "start": "webpack && webpack-dev-server"
+    "start": "output-json && webpack && webpack-dev-server"
   },
   "repository": {
     "type": "git",

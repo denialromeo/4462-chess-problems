@@ -16,19 +16,17 @@ To get going with the recorder, install [Git](https://git-scm.com/) and [Node.js
 
 ```
 git clone https://github.com/denialromeo/3412-chess-problems
-cd 3412-chess-problems\chess-puzzle-recorder
+cd 3412-chess-problems/chess-puzzle-recorder
 npm install
 npm start
 ```
 
 Now you can record puzzles at [http://localhost:8000](http://localhost:8000)!
 
-Run `output-json.bat` to transfer the database to a JSON file the puzzle player can use.
-
 To get going with the puzzle player, run -
 
 ```
-cd ..\chess-puzzle-player
+cd 3412-chess-problems/chess-puzzle-player
 npm install
 npm start
 ```
