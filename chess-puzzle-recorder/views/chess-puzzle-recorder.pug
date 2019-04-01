@@ -77,7 +77,6 @@ html
             }
             document.querySelector("#resetBtn").onclick = function() {
                 board.position("#{fen}")
-                game = new Chess(`${"#{fen}"} ${"#{first}".startsWith("W") ? "w" : "b"} - - 0 1`)
                 moves = []
                 if (document.recording) {
                     document.querySelector("#commitBtn").style="display:none"
