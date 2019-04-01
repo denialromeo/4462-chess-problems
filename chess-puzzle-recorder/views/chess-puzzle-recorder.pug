@@ -8,6 +8,7 @@ html
         form(method="post", action="/", onsubmit="submitForm()", style="font-family:Courier")
             input(type="button", id="recordBtn", value="Start Recording")
             input(type="submit", id="commitBtn", value="Commit Problem", style="display: none")
+            input(type="button", id="resetBtn", value="Reset Board")
             br
             br
             input(style="display:none", id="fen", name="fen")
@@ -30,8 +31,12 @@ html
             var moves = []
 
             function validateForm() {
+                if (moves.length !== 3) {
+                    window.alert("Error: Too many or too few moves recorded. Reset board and try again!")
+                    return false
+                }
                 if (game.in_checkmate() !== true) {
-                    window.alert("Error: Game is not in checkmate. Refresh page and try again!")
+                    window.alert("Error: Game is not in checkmate. Reset board and try again!")
                     return false
                 }
                 return true
@@ -69,6 +74,15 @@ html
                 document.recording = true
                 document.querySelector("#recordBtn").style="display:none"
                 document.querySelector("#commitBtn").style=""
+                document.getElementById("fen").value = board.fen()
+            }
+            document.querySelector("#resetBtn").onclick = function() {
                 board.position("#{fen}")
-                document.getElementById("fen").value = "#{fen}"
+                game = new Chess(`${"#{fen}"} ${"#{first}".startsWith("W") ? "w" : "b"} - - 0 1`)
+                moves = []
+                if (document.recording) {
+                    document.querySelector("#commitBtn").style="display:none"
+                    document.querySelector("#recordBtn").style=""
+                    document.recording = false
+                }
             }
