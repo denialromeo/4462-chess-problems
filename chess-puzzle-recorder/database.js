@@ -13,7 +13,7 @@ function nextUnsolved(complete) {
 }
 
 function printSolved() {
-    db.all(`select problemid, type, first, fen, moves from problems where solved=1 order by problemid`, (err,rows) => console.log(JSON.stringify(rows)))
+    db.all(`select problemid, first, fen, moves from problems where solved=1 order by problemid`, (err,rows) => console.log(JSON.stringify(rows)))
 }
 
 Object.assign(exports, {
