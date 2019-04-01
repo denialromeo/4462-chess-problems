@@ -65,7 +65,8 @@ html
                         }
                         moves.push(source + "-" + target)
                     }
-                }
+                },
+                onSnapEnd: function() { if (document.recording) { board.position(game.fen()) } } // For pawn promotion.
             })
 
             document.querySelector("#recordBtn").onclick = function() {
