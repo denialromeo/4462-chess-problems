@@ -33,6 +33,12 @@ npm start
 
 Everything here is still very much under construction. I don't recommend using it in the present state. Expect much to change.
 
+### To-Do
+
+Recorder -
+
+* Problem 911 requires pawn promotion to a knight. At least one other problem requires promotion to a queen. How to account for different promotion possibilities?
+
 ### Acknowledgments
 
 Special thanks to Chris Oakman for his sublime, exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).

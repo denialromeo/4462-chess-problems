@@ -60,7 +60,7 @@ html
                 sparePieces: true,
                 onDrop: function(source, target) {
                     if (document.recording) {
-                        if (game.move({"from": source, "to": target, "promotion": "q"}) === null) {
+                        if (game.move({"from": source, "to": target, "promotion": "n"}) === null) {
                             return "snapback"
                         }
                         moves.push(source + "-" + target)
