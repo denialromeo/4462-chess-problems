@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 
-const { commitProblem, nextUnsolved } = require('./database.js')
+const { commitProblem, getProblem, nextUnsolved } = require('./database.js')
 
 const app = express();
 app.set('view engine', 'pug')
@@ -10,7 +10,12 @@ app.use("/chessboard", express.static(__dirname + '/chessboard'))
 app.use(bodyparser.urlencoded({ extended: true }))
 
 app.get('/', function(req, res) {
-    nextUnsolved((err, row) => res.render("chess-puzzle-recorder", row))
+    if ("id" in req.query) {
+        getProblem(req.query.id, (err, row) => res.render("chess-puzzle-recorder", row))
+    }
+    else {
+        nextUnsolved((err, row) => res.render("chess-puzzle-recorder", row))
+    }
 })
 
 app.post('/', function(req, res) {

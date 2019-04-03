@@ -12,12 +12,17 @@ function nextUnsolved(complete) {
     db.get(`select problemid, type, first, fen, moves from problems where solved=0 order by problemid`, complete)
 }
 
+function getProblem(id, complete) {
+    db.get(`select problemid, type, first, fen, moves from problems where problemid=${id}`, complete)
+}
+
 function printSolved() {
     db.all(`select problemid, first, fen, moves from problems where solved=1 order by problemid`, (err,rows) => console.log(JSON.stringify(rows)))
 }
 
 Object.assign(exports, {
     commitProblem: commitProblem,
+    getProblem: getProblem,
     nextUnsolved: nextUnsolved,
     printSolved: printSolved,
 })
