@@ -35,9 +35,11 @@ Everything here is still very much under construction. I don't recommend using i
 
 ### To-Do
 
-Recorder -
+* Problem 911 requires pawn promotion to a knight. Update database to reflect this.
 
-* Problem 911 requires pawn promotion to a knight. At least one other problem requires promotion to a queen. How to account for different promotion possibilities?
+* Database has incorrect values for first moves that are promotions. Need to clean up those values. To see this, run
+    
+    `sqlite3 chess-puzzle-recorder\p.db "select problemid, moves from problems" | ag [qnr]`
 
 ### Acknowledgments
 
