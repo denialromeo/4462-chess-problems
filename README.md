@@ -33,6 +33,10 @@ npm start
 
 Everything here is still very much under construction. I don't recommend using it in the present state. Expect much to change.
 
+### Possible Errors in Book
+
+* Problem 1071 seems to be a mate-in-one problem (Nc7). I've tweaked the board here so it's mate-in-two.
+
 ### Acknowledgments
 
 Special thanks to Chris Oakman for his sublime, exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).
