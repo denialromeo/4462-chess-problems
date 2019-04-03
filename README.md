@@ -33,12 +33,6 @@ npm start
 
 Everything here is still very much under construction. I don't recommend using it in the present state. Expect much to change.
 
-### To-Do
-
-* Database has incorrect values for first moves that are promotions. Need to clean up those values. To see this, run
-    
-    `sqlite3 chess-puzzle-recorder\p.db "select moves from problems" | ag [qnr]`
-
 ### Acknowledgments
 
 Special thanks to Chris Oakman for his sublime, exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).
