@@ -30100,7 +30100,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "8/8/6Q1/8/7B/5R2/6q1/R3K1k1 w - - 0 1"]
+[FEN "8/8/6Q1/8/7B/5R2/6p1/R3K1k1 w - - 0 1"]
 
 1.Rf2 *
 
@@ -33780,17 +33780,9 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "8/1K4p1/3k2B1/3P4/2P3Q1/8/8/8 w - - 0 1"]
+[FEN "8/1K3p2/3k1B2/3P4/2P3Q1/8/8/8 w - - 0 1"]
 
-1.Qd4 Kd7 2.Qe5 {threatening Qc7#(#1)} 
-    ( 2.Qxg7+ Kd6 3.Qc7# )
-    ( 2.Qc5 {threatening Qc7#(#1)} 2...Kd8 3.Qd6# 
-        ( 3.Qc7# )
-    )
-2...Kd8 3.Qd6# 
-    ( 3.Qc7# )
-    ( 3.Qe8# )
-*
+1.Qd4 *
 
 [Event "#2964 Chess: 5334 Problems, Combinations, and Games by László Polgár"]
 [Site "Copyright 1994 Könemann"]
@@ -40969,7 +40961,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "7B/p5Np/2p3pk/1rp3p1/b6r/P3N1p1/q3p1QP/2K5 w - - 0 1"]
+[FEN "7B/p5Np/2p3pk/1rp3p1/b6r/P3N1p1/4p1QP/2K5 w - - 0 1"]
 
 1.Nef5+ *
 
