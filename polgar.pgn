@@ -12192,9 +12192,9 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "8/5pp1/q1pR1rkp/1p1pQn2/1P3P2/r1p3PP/B5K1/8 w - - 0 1"]
+[FEN "8/5pp1/q1pR1rkp/1p1pQn2/1P3P2/r1P3PP/B5K1/8 w - - 0 1"]
 
-1.Qxf5+ Kxf5 2.Bb1+ c2 3.Bxc2+ Rd3 4.Bxd3# *
+1.Qxf5+ *
 
 [Event "#1060 Chess: 5334 Problems, Combinations, and Games by László Polgár"]
 [Site "Copyright 1994 Könemann"]
@@ -17457,7 +17457,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "1K6/8/1B6/1B6/1k6/1n6/1q6/8 w - - 0 1"]
+[FEN "1K6/8/1B6/1B6/1k6/1n6/1Q6/8 w - - 0 1"]
 
 1.Kb7 *
 
@@ -20756,7 +20756,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "8/8/8/8/8/8/4QRb1/R3K2k w - - 0 1"]
+[FEN "8/8/8/8/8/8/4QRbp/R3K2k w - - 0 1"]
 
 1.Qe4 *
 
@@ -21999,7 +21999,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "8/Nk6/1P2K3/8/8/8/BR6/8 w - - 0 1"]
+[FEN "8/Nk6/1P2K3/8/4N3/8/BR6/8 w - - 0 1"]
 
 1.Nc6 *
 
@@ -22395,7 +22395,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "4k2r/1R5p/6P1/8/8/8/8/5RK1 w k - 0 1"]
+[FEN "4k2r/1R5p/6P1/8/8/8/8/5RK1 w - - 0 1"]
 
 1.Ra1 *
 
@@ -26102,7 +26102,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "8/8/1N6/8/1p1B4/8/2k1B3/R3K3 w - - 0 1"]
+[FEN "8/8/8/N7/1p1B4/8/2k1B3/R3K3 w - - 0 1"]
 
 1.Bf3 *
 

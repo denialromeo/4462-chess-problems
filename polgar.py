@@ -20,9 +20,10 @@ if __name__ == '__main__':
     c = conn.cursor()
     f = open("polgar.pgn")
     g = read_game(f)
+    todo = []
     for i in range(4462):
         g = read_game(f)
-        if i >= 4400:
+        if (i + 1) in todo:
             info = (g.headers["Event"].split()[0][1:], g.headers["White"], g.headers["Black"], g.headers["FEN"], solve(g.headers["FEN"]))
             print(info)
             c.execute('INSERT INTO problems VALUES(?, ?, ?, ?, ?, 1)', info)
