@@ -39,6 +39,7 @@ Everything here is still very much under construction. I don't recommend using i
 * Problem 1827 seems to be a mate-in-three problem. I've added a pawn so it's mate-in-two.
 * Problem 2300 seems to be a mate-in-three problem. I've moved a knight so it's mate-in-two.
 * Problem 2600 seems to be a mate-in-three problem. I've added a white knight so it's mate-in-two.
+* Problem 2616 seems to be a mate-in-three problem. I've moved a white rook so it's mate-in-two.
 * Problem 2645 seems to be a mate-in-three problem. I've replaced the black queen with a pawn so it's mate-in-two.
 * Problem 3578 seems to be a mate-in-three problem. I've removed the black queen so it's mate-in-two.
 
