@@ -48863,9 +48863,9 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in three"]
 [Black "Black to move"]
 [Result "*"]
-[FEN "R2N4/1K1P4/1P2P2Q/P2Bp3/p3n3/1p1b3R/kbr2q2/8 b - - 0 1"]
+[FEN "8/2q2rbk/R3b1p1/3n3p/3pB2P/Q2P2P1/4P1K1/4N2R b - - 0 1"]
 
-1...Nd6+ 2.Ka7 Qxb6+ 3.Kxb6 Bd4# *
+*
 
 [Event "#4278 Chess: 5334 Problems, Combinations, and Games by László Polgár"]
 [Site "Copyright 1994 Könemann"]
@@ -50569,7 +50569,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in three"]
 [Black "Black to move"]
 [Result "*"]
-[FEN "r1b3k1/pppn2bp/3p2r1/3P4/2P1PB1q/2N1KP2/PP2BP2/R4R2 b - - 0 1"]
+[FEN "r1b3k1/pppn2bp/3p2r1/2nP4/2P1PB1q/2N1KP2/PP2BP2/R4R2 b - - 0 1"]
 
 1...Qxf4+ 2.Kxf4 Bh6+ 3.Kf5 Ne5# *
 
