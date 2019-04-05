@@ -29605,7 +29605,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "3Q4/8/8/3N4/3k4/1P6/4B3/R3K3 w - - 0 1"]
+[FEN "3Q4/8/N7/3N4/3k4/1P6/4B3/R3K3 w - - 0 1"]
 
 1.Bf3 *
 
@@ -29803,9 +29803,9 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "Q7/8/8/8/8/2n5/7p/R2RK1k1 w - - 0 1"]
+[FEN "3Q4/8/8/2pN4/3k4/1P6/4B3/R3K3 w - - 0 1"]
 
-1.Rd2 *
+*
 
 [Event "#2619 Chess: 5334 Problems, Combinations, and Games by László Polgár"]
 [Site "Copyright 1994 Könemann"]

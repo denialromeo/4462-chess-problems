@@ -20,7 +20,7 @@ if __name__ == '__main__':
     c = conn.cursor()
     f = open("polgar.pgn")
     g = read_game(f)
-    todo = [2600,2616,2618,2645]
+    todo = [2616,2618]
     for i in range(4462):
         g = read_game(f)
         if (i + 1) in todo:
