@@ -23,8 +23,9 @@ html
             document.querySelector("#problemid").value = "#{problemid}"
             document.querySelector("#first").value = "#{first}"
             document.querySelector("#type").value = "#{type}"
-            console.log("#{moves}")
             console.log("#{problemid}")
+            console.log("#{first}")
+            console.log("#{moves}")
 
             var moves = []
 
@@ -60,7 +61,7 @@ html
                 sparePieces: true,
                 onDrop: function(source, target) {
                     if (document.recording) {
-                        if (game.move({"from": source, "to": target, "promotion": "n"}) === null) {
+                        if (game.move({"from": source, "to": target, "promotion": "q"}) === null) {
                             return "snapback"
                         }
                         moves.push(source + "-" + target)
