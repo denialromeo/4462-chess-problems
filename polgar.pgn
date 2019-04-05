@@ -43556,7 +43556,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in three"]
 [Black "White to move"]
 [Result "*"]
-[FEN "6nr/p1p2Bpp/1p1bQ3/4p1k1/4P3/2N5/PPP1KP2/R7 w - - 0 1"]
+[FEN "6nr/p1p2Bpp/1p1bQ3/4p1k1/4P3/2N5/PPP1KP1q/R7 w - - 0 1"]
 
 1.Qf5+ Kh4 2.Rh1# *
 
@@ -49867,7 +49867,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in three"]
 [Black "Black to move"]
 [Result "*"]
-[FEN "6k1/8/3Rp1p1/p5p1/4R1n1/4PKP1/PPQ3P1/7q b - - 0 1"]
+[FEN "6k1/8/3Rp1p1/p5p1/4R3/3nPKP1/PPQ3P1/7q b - - 0 1"]
 
 1...Qf1+ *
 
