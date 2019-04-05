@@ -10,7 +10,7 @@ def solve(fen):
     moves = []
     board = chess.Board(fen)
     while not board.is_game_over():
-        result = engine.play(board, chess.engine.Limit(time=5.0))
+        result = engine.play(board, chess.engine.Limit(time=1.0))
         moves.append(str(result.move)[0:2] + "-" + str(result.move)[2:])
         board.push(result.move)
     return str.join(";", moves)
