@@ -41,4 +41,4 @@ Everything here is still very much under construction. I don't recommend using i
 
 Special thanks to Chris Oakman for his sublime, exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).
 
-Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn, and to the elusive F.T. Horde, from whose [mateintwo](https://github.com/manyids2/mateintwo) I got 1,437 solutions and 1,975 questions.
+Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn.
