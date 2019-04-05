@@ -1,5 +1,7 @@
 import chess
 import chess.engine
+import sqlite3
+
 from chess.pgn import read_game
 
 engine = chess.engine.SimpleEngine.popen_uci("stockfish.exe")
@@ -13,12 +15,16 @@ def solve(fen):
         board.push(result.move)
     return str.join(";", moves)
 
-def d():
-  f = open("polgar.pgn")
-  g = read_game(f)
-  for i in range(310):
+if __name__ == '__main__':
+    conn = sqlite3.connect("problems.db")
+    c = conn.cursor()
+    f = open("polgar.pgn")
     g = read_game(f)
-    print(g.headers["Event"].split()[0][1:], g.headers["White"], g.headers["Black"], solve(g.headers["FEN"]))
-
-d()
-engine.quit()
+    for i in range(4462):
+        g = read_game(f)
+        if i >= 4400:
+            info = (g.headers["Event"].split()[0][1:], g.headers["White"], g.headers["Black"], g.headers["FEN"], solve(g.headers["FEN"]))
+            print(info)
+            c.execute('INSERT INTO problems VALUES(?, ?, ?, ?, ?, 1)', info)
+            conn.commit()
+    engine.quit()

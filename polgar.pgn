@@ -10590,7 +10590,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "3b4/1n1kp3/8/3n3B/7q/N7/7B/2Q4K w - - 0 1"]
+[FEN "3b4/1n1kp3/8/3n3B/N6q/8/7B/2Q4K w - - 0 1"]
 
 1.Qc6+ *
 
@@ -31310,7 +31310,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "5K1k/7Q/8/8/8/8/p7/R6R w - - 0 1"]
+[FEN "5K1k/7q/8/8/8/8/p7/R6R w - - 0 1"]
 
 1.Rag1# *
 
