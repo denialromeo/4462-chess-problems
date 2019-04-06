@@ -4,6 +4,9 @@ const random = require("./random.js")
 
 function init() {
     const problem = random.choice(problems)
+    console.log(problem.problemid)
+    console.log(problem.type)
+    console.log(problem.first)
     const moves = problem.moves.split(";")
     const board = ChessBoard('board', {
         draggable: true,

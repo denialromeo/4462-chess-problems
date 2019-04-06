@@ -1,7 +1,7 @@
 const { Database } = require("sqlite3")
 const path = require("path")
 
-const db = new Database(path.resolve(__dirname, "./p.db"))
+const db = new Database(path.resolve(__dirname, "./problems.db"))
 db.exec("pragma foreign_keys=ON")
 
 function commitProblem(problemid, type, first, fen, moves, solved) {
@@ -17,7 +17,7 @@ function getProblem(id, complete) {
 }
 
 function printSolved() {
-    db.all(`select problemid, first, fen, moves from problems where solved=1 order by problemid`, (err,rows) => console.log(JSON.stringify(rows)))
+    db.all(`select problemid, first, type, fen, moves from problems where solved=1`, (err,rows) => console.log(JSON.stringify(rows)))
 }
 
 Object.assign(exports, {

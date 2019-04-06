@@ -1,12 +1,10 @@
-## 3412 Chess Problems
+## 4462 Chess Problems
 
-In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess: 5,334 Problems, Combinations, and Games*](https://www.amazon.com/Chess-5334-Problems-Combinations-Games/dp/1579129501/ref=tmm_hrd_swatch_0). Of these, 3,412 are "checkmate in two" problems.
-
-In a bid to improve my own game, I plan to work through these problems at a languid pace, updating a simple database file as I go along. This will also likely be of value to other chess enthusiasts.
-
-I hope this project doesn't violate copyright. I consider it merely notes that I'm taking as I read. Please buy the book!
+In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess: 5,334 Problems, Combinations, and Games*](https://www.amazon.com/Chess-5334-Problems-Combinations-Games/dp/1579129501/ref=tmm_hrd_swatch_0). Of these, 4,462 are checkmate problems.
 
 ### Development Guide
+
+If you'd like to use these problems for your own project, simply download [problems.db](/chess-puzzle-recorder), an SQLite database file. Enjoy!
 
 This project has two parts - a chess puzzle recorder and a chess puzzle player.
 
@@ -51,4 +49,4 @@ Everything here is still very much under construction. I don't recommend using i
 
 Special thanks to Chris Oakman for his sublime, exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).
 
-Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn.
+Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn (http://www.qno.de/schach/polgar.zip).
