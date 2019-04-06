@@ -4,7 +4,7 @@ In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%
 
 ### Development Guide
 
-If you'd like to use these problems for your own project, simply download [problems.db](/chess-puzzle-recorder), an SQLite database file. Enjoy!
+If you'd like to use these problems for your own project, simply download [problems.db](/chess-puzzle-recorder/problems.db), an SQLite database file. Enjoy!
 
 This project has two parts - a chess puzzle recorder and a chess puzzle player.
 
