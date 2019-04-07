@@ -13,8 +13,8 @@ The recorder allows you to record a problem and commit it to a database file, wh
 To get going with the recorder, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
 
 ```
-git clone https://github.com/denialromeo/3412-chess-problems
-cd 3412-chess-problems/chess-puzzle-recorder
+git clone https://github.com/denialromeo/4462-chess-problems
+cd 4462-chess-problems/chess-puzzle-recorder
 npm install
 npm start
 ```
@@ -24,12 +24,14 @@ Now you can record puzzles at [http://localhost:8000](http://localhost:8000)!
 To get going with the puzzle player, run -
 
 ```
-cd 3412-chess-problems/chess-puzzle-player
+cd 4462-chess-problems/chess-puzzle-player
 npm install
 npm start
 ```
 
-Everything here is still very much under construction. I don't recommend using it in the present state. Expect much to change.
+The puzzle player depends on the recorder, so make sure to build it first.
+
+Everything here is still very much under construction. I don't recommend using it quite yet. Expect much to change.
 
 ### Possible Errors in Book
 

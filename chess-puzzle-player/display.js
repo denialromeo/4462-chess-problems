@@ -1,6 +1,7 @@
+const { Chess }      = require("chess.js")
 const { ChessBoard } = require("./chessboard/chessboard.js")
-const { problems } = require("./problems.json")
-const random = require("./random.js")
+const { problems }   = require("./problems.json")
+const random         = require("./random.js")
 
 function init() {
     const problem = random.choice(problems)
