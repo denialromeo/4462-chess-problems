@@ -8,6 +8,8 @@ function init() {
     console.log(problem.problemid)
     console.log(problem.type)
     console.log(problem.first)
+    console.log(problem.fen)
+    document.querySelector("#problem-title").innerHTML = `${problem.type} - ${problem.first}`
     const moves = problem.moves.split(";")
     const board = ChessBoard('board', {
         draggable: true,
