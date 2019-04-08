@@ -1,3 +1,6 @@
+// TODO: Allow alternative final moves from user if they result in checkmate. Examples 1039, 1040
+// 1676 is castling problem.
+
 const Chess = require("chess.js")
 const URI = require("urijs")
 const $   = require("jquery")
@@ -31,9 +34,9 @@ function parse_move(move) {
 function init() {
     const url_parameters = new URI(window.location.href).search(true)
     const problem = ("id" in url_parameters && url_parameters["id"] <= 4462) ? problems[url_parameters["id"] - 1] : random.choice(problems)
-    console.log(problem.problemid)
-    console.log(problem.fen)
     document.querySelector("#problem-title").innerHTML = `${problem.type} - ${problem.first}`
+    document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
+    document.querySelector("#problem-link").href = `?id=${problem.problemid}`
     const game = new Chess(problem.fen)
     const correct_moves = problem.moves.split(";")
     function make_move() {
