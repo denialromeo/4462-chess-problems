@@ -6,32 +6,16 @@ In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%
 
 If you'd like to use these problems for your own project, simply download [problems.db](/chess-puzzle-recorder/problems.db), an SQLite database file. Enjoy!
 
-This project has two parts - a chess puzzle recorder and a chess puzzle player.
-
-The recorder allows you to record a problem and commit it to a database file, while the puzzle player uses the information in the database file to let the user play the puzzle.
-
-To get going with the recorder, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
+To get going, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
 
 ```
 git clone https://github.com/denialromeo/4462-chess-problems
-cd 4462-chess-problems/chess-puzzle-recorder
-npm install
-npm start
-```
-
-Now you can record puzzles at [http://localhost:8000](http://localhost:8000)!
-
-To get going with the puzzle player, run -
-
-```
 cd 4462-chess-problems/chess-puzzle-player
 npm install
 npm start
 ```
 
-Now open index.html in a browser to play through a puzzle!
-
-Everything here is still very much under construction. I don't recommend using it quite yet. Expect much to change.
+Now open index.html in a browser to play through a problem!
 
 ### Possible Errors in Book
 
@@ -49,6 +33,6 @@ Everything here is still very much under construction. I don't recommend using i
 
 ### Acknowledgments
 
-Special thanks to Chris Oakman for his sublime, exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).
+Special thanks to Chris Oakman for his exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).
 
 Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn (http://www.qno.de/schach/polgar.zip).
