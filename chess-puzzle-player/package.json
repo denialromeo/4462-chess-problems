@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Improve your game!",
   "scripts": {
-    "start": "output-json && webpack && webpack-dev-server"
+    "start": "webpack"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "babel-preset-env": "^1.7.0",
     "chess.js": "^0.10.2",
     "jquery": "^3.3.1",
+    "urijs": "^1.19.1",
     "webpack": "^4.16.5"
   },
   "devDependencies": {

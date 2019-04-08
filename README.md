@@ -29,7 +29,7 @@ npm install
 npm start
 ```
 
-The puzzle player depends on the recorder, so make sure to build it first.
+Now open index.html in a browser to play through a puzzle!
 
 Everything here is still very much under construction. I don't recommend using it quite yet. Expect much to change.
 
