@@ -1,8 +1,24 @@
 const Chess = require("chess.js")
 const URI = require("urijs")
+const $   = require("jquery")
 const { ChessBoard } = require("./chessboard/chessboard.js")
 const { problems }   = require("./problems.json")
 const random         = require("./random.js")
+
+function unhighlight() {
+  $('#board .square-55d63').css('background', '');
+}
+
+function highlight(square) {
+  var squareEl = $('#board .square-' + square);
+  
+  var background = '#a9a9a9';
+  if (squareEl.hasClass('black-3c85d') === true) {
+    background = '#696969';
+  }
+
+  squareEl.css('background', background);
+}
 
 
 function parse_move(move) {
@@ -18,7 +34,6 @@ function init() {
     console.log(problem.problemid)
     console.log(problem.fen)
     document.querySelector("#problem-title").innerHTML = `${problem.type} - ${problem.first}`
-    const moves = problem.moves.split(";")
     const game = new Chess(problem.fen)
     const correct_moves = problem.moves.split(";")
     function make_move() {
@@ -46,9 +61,13 @@ function init() {
             }
         },
         onMoveEnd: function() { board.position(game.fen()) },
-        onSnapEnd: function() { board.position(game.fen()) }
+        onSnapEnd: function() { board.position(game.fen()); unhighlight() }
     });
-    document.querySelector("#nextBtn").onclick = make_move
+    document.querySelector("#hint-btn").onclick = function() {
+        let [source, target, promotion] = parse_move(correct_moves[0])
+        highlight(source)
+        highlight(target)
+    }
 }
 
 // Exports
