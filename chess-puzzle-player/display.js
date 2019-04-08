@@ -25,17 +25,17 @@ function init() {
         draggable: true,
         position: problem.fen,
         dropOffBoard: 'snapback',
-        onDrop: function(source, target) {
-            console.log("Drop it")
-            if (game.move({"from": source, "to": target, "promotion": "q"}) === null) {
+        onDrop: function(src, tgt) {
+            let [source, target, promotion] = parse_move(correct_moves[0])
+            console.log(source, src, target, tgt)
+            if (src !== source || tgt !== target) {
                 return "snapback"
             }
+            game.move({"from": source, "to": target, "promotion": promotion})
+            correct_moves.shift()
         },
-        onMoveEnd: function(oldPos, newPos) {
-            console.log("No")
-            board.position(game.fen())
-        },
-        onSnapEnd: function() { board.position(game.fen()) } // For pawn promotion.
+        onMoveEnd: function() { board.position(game.fen()) },
+        onSnapEnd: function() { board.position(game.fen()) }
     });
 
     document.querySelector("#nextBtn").onclick = function() {
