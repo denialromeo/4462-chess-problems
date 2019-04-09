@@ -1,5 +1,5 @@
-// TODO: Allow alternative final moves from user if they result in checkmate. Examples 1039, 1040, 4055
-// 1676 is castling problem.
+// TODO: Allow alternative final moves from user if they result in checkmate. Examples 1039, 1040, 4055, 4320
+// 1676 is castling problem. 1616 is amusing double promotion.
 
 const Chess = require("chess.js")
 const URI = require("urijs")
@@ -29,7 +29,6 @@ var game
 var correct_moves
 function make_move() {
     let [source, target, promotion] = parse_move(correct_moves[0])
-    console.log(source,target,promotion)
     game.move({"from": source, "to": target, "promotion": promotion})
     board.move(source + "-" + target)
     correct_moves.shift()
@@ -42,7 +41,6 @@ const board = ChessBoard('board', {
             return "snapback"
         }
         let [source, target, promotion] = parse_move(correct_moves[0])
-        console.log(source, src, target, tgt)
         if (src !== source || tgt !== target) {
             return "snapback"
         }
@@ -55,6 +53,7 @@ const board = ChessBoard('board', {
             $("#hint-btn").css('display', 'none')
             $("#next-btn").css('display', '')
             document.querySelector("#next-btn").onclick = () => next()
+            document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!"
         }
     },
     onMoveEnd: function() {
