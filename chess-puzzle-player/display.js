@@ -9,13 +9,13 @@ const { problems }   = require("./problems.json")
 const random         = require("./random.js")
 
 function unhighlight() {
-  $('#board .square-55d63').css('background', '');
+  $("#board .square-55d63").css("background", "")
 }
 
 function highlight(square) {
-  const squareEl = $('#board .square-' + square);
-  const background = squareEl.hasClass('black-3c85d') ? '#696969' : '#a9a9a9'
-  squareEl.css('background', background);
+  const squareEl = $("#board .square-" + square)
+  const background = squareEl.hasClass("black-3c85d") ? "#696969" : "#a9a9a9"
+  squareEl.css("background", background)
 }
 
 function parse_move(move) {
@@ -33,9 +33,9 @@ function make_move() {
     board.move(source + "-" + target)
     correct_moves.shift()
 }
-const board = ChessBoard('board', {
+const board = ChessBoard("board", {
     draggable: true,
-    dropOffBoard: 'snapback',
+    dropOffBoard: "snapback",
     onDrop: function(src, tgt) {
         if (game.in_checkmate()) {
             return "snapback"
@@ -50,8 +50,8 @@ const board = ChessBoard('board', {
             setTimeout(make_move, 500)
         }
         if (game.in_checkmate()) {
-            $("#hint-btn").css('display', 'none')
-            $("#next-btn").css('display', '')
+            $("#hint-btn").css("display", "none")
+            $("#next-btn").css("display", "")
             document.querySelector("#next-btn").onclick = () => next()
             document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!"
         }
@@ -63,8 +63,8 @@ const board = ChessBoard('board', {
 })
 
 function next(problem=random.choice(problems)) {
-    $("#next-btn").css('display', 'none')
-    $("#hint-btn").css('display', '')
+    $("#next-btn").css("display", "none")
+    $("#hint-btn").css("display", "")
     const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")
     document.querySelector("#problem-title").innerHTML = `${problem_type} - ${problem.first}`
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
