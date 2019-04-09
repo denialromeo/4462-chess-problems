@@ -34,7 +34,8 @@ function parse_move(move) {
 function init() {
     const url_parameters = new URI(window.location.href).search(true)
     const problem = ("id" in url_parameters && url_parameters["id"] <= 4462) ? problems[url_parameters["id"] - 1] : random.choice(problems)
-    document.querySelector("#problem-title").innerHTML = `${"Checkm" + problem.type.slice(1)} - ${problem.first}`
+    const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")
+    document.querySelector("#problem-title").innerHTML = `${problem_type} - ${problem.first}`
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
     document.querySelector("#problem-link").href = `?id=${problem.problemid}`
     const game = new Chess(problem.fen)
