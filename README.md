@@ -37,4 +37,4 @@ Special thanks to Chris Oakman for his exquisitely documented 2013 [chessboard.j
 
 Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn (http://www.qno.de/schach/polgar.zip).
 
-And finally, much thanks to the maintainers of [Stockfish](https://github.com/official-stockfish/Stockfish#readme) and [python-chess](https://python-chess.readthedocs.io/en/latest/index.html); without these, this project would have taken years.
+And finally, much thanks to the authors of [Stockfish](https://github.com/official-stockfish/Stockfish#readme) and [python-chess](https://python-chess.readthedocs.io/en/latest/index.html); without these, this project would have taken years.
