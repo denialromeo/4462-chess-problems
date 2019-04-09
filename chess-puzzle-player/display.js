@@ -1,4 +1,4 @@
-// TODO: Allow alternative final moves from user if they result in checkmate. Examples 1039, 1040
+// TODO: Allow alternative final moves from user if they result in checkmate. Examples 1039, 1040, 4055
 // 1676 is castling problem.
 
 const Chess = require("chess.js")
@@ -25,9 +25,9 @@ function parse_move(move) {
     return [source, target, promotion]
 }
 
-function init() {
-    const url_parameters = new URI(window.location.href).search(true)
-    const problem = ("id" in url_parameters && url_parameters["id"] <= 4462) ? problems[url_parameters["id"] - 1] : random.choice(problems)
+function next(problem=random.choice(problems)) {
+    $("#next-btn").css('display', 'none')
+    $("#hint-btn").css('display', '')
     const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")
     document.querySelector("#problem-title").innerHTML = `${problem_type} - ${problem.first}`
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
@@ -46,7 +46,9 @@ function init() {
         position: problem.fen,
         dropOffBoard: 'snapback',
         onDrop: function(src, tgt) {
-            if (game.in_checkmate()) { return "snapback" }
+            if (game.in_checkmate()) {
+                return "snapback"
+            }
             let [source, target, promotion] = parse_move(correct_moves[0])
             console.log(source, src, target, tgt)
             if (src !== source || tgt !== target) {
@@ -54,11 +56,18 @@ function init() {
             }
             game.move({"from": source, "to": target, "promotion": promotion})
             correct_moves.shift()
-            if (correct_moves.length % 2 == 0) {
+            if (correct_moves.length !== 0) {
                 setTimeout(make_move, 500)
             }
+            if (game.in_checkmate()) {
+                $("#hint-btn").css('display', 'none')
+                $("#next-btn").css('display', '')
+                document.querySelector("#next-btn").onclick = () => next()
+            }
         },
-        onMoveEnd: function() { board.position(game.fen()) },
+        onMoveEnd: function() {
+            board.position(game.fen())
+        },
         onSnapEnd: function() { board.position(game.fen()); unhighlight() }
     });
     document.querySelector("#hint-btn").onclick = function() {
@@ -66,6 +75,12 @@ function init() {
         highlight(source)
         highlight(target)
     }
+}
+
+function init() {
+    const url_parameters = new URI(window.location.href).search(true)
+    const problem = ("id" in url_parameters && url_parameters["id"] <= 4462) ? problems[url_parameters["id"] - 1] : random.choice(problems)
+    next(problem)
 }
 
 // Exports
