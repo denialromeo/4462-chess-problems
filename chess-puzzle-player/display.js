@@ -42,12 +42,22 @@ const board = ChessBoard("board", {
             return "snapback"
         }
         let [source, target, promotion] = parse_move(correct_moves[0])
-        if (src !== source || tgt !== target) {
-            return "snapback"
+        if (correct_moves.length == 1) {
+            game.move({"from": src, "to": tgt, "promotion": promotion})
+            if (!game.in_checkmate()) {
+                game.undo()
+                return "snapback"
+            }
+            else {
+                correct_moves.shift()
+            }
         }
-        game.move({"from": source, "to": target, "promotion": promotion})
-        correct_moves.shift()
-        if (correct_moves.length !== 0) {
+        else {
+            if (src !== source || tgt !== target) {
+                return "snapback"
+            }
+            game.move({"from": source, "to": target, "promotion": promotion})
+            correct_moves.shift()
             setTimeout(make_move, 500)
         }
         if (game.in_checkmate()) {
