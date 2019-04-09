@@ -6,7 +6,7 @@ In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%
 
 If you'd like to use these problems for your own project, simply download [problems.db](/chess-puzzle-recorder/problems.db), an SQLite database file. Enjoy!
 
-To get going, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
+To get going with this project, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
 
 ```
 git clone https://github.com/denialromeo/4462-chess-problems
@@ -37,4 +37,4 @@ Special thanks to Chris Oakman for his exquisitely documented 2013 [chessboard.j
 
 Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn (http://www.qno.de/schach/polgar.zip).
 
-And finally, special thanks to the maintainers of [Stockfish](https://github.com/official-stockfish/Stockfish#readme), without which this project would have taken years.
+And finally, special thanks to the maintainers of [Stockfish](https://github.com/official-stockfish/Stockfish#readme) and [python-chess](https://python-chess.readthedocs.io/en/latest/index.html); without these, this project would have taken years.
