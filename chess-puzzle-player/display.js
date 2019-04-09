@@ -25,6 +25,44 @@ function parse_move(move) {
     return [source, target, promotion]
 }
 
+var game
+var correct_moves
+function make_move() {
+    let [source, target, promotion] = parse_move(correct_moves[0])
+    console.log(source,target,promotion)
+    game.move({"from": source, "to": target, "promotion": promotion})
+    board.move(source + "-" + target)
+    correct_moves.shift()
+}
+const board = ChessBoard('board', {
+    draggable: true,
+    dropOffBoard: 'snapback',
+    onDrop: function(src, tgt) {
+        if (game.in_checkmate()) {
+            return "snapback"
+        }
+        let [source, target, promotion] = parse_move(correct_moves[0])
+        console.log(source, src, target, tgt)
+        if (src !== source || tgt !== target) {
+            return "snapback"
+        }
+        game.move({"from": source, "to": target, "promotion": promotion})
+        correct_moves.shift()
+        if (correct_moves.length !== 0) {
+            setTimeout(make_move, 500)
+        }
+        if (game.in_checkmate()) {
+            $("#hint-btn").css('display', 'none')
+            $("#next-btn").css('display', '')
+            document.querySelector("#next-btn").onclick = () => next()
+        }
+    },
+    onMoveEnd: function() {
+        board.position(game.fen())
+    },
+    onSnapEnd: function() { board.position(game.fen()); unhighlight() }
+})
+
 function next(problem=random.choice(problems)) {
     $("#next-btn").css('display', 'none')
     $("#hint-btn").css('display', '')
@@ -32,44 +70,9 @@ function next(problem=random.choice(problems)) {
     document.querySelector("#problem-title").innerHTML = `${problem_type} - ${problem.first}`
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
     document.querySelector("#problem-link").href = `?id=${problem.problemid}`
-    const game = new Chess(problem.fen)
-    const correct_moves = problem.moves.split(";")
-    function make_move() {
-        let [source, target, promotion] = parse_move(correct_moves[0])
-        console.log(source,target,promotion)
-        game.move({"from": source, "to": target, "promotion": promotion})
-        board.move(source + "-" + target)
-        correct_moves.shift()
-    }
-    const board = ChessBoard('board', {
-        draggable: true,
-        position: problem.fen,
-        dropOffBoard: 'snapback',
-        onDrop: function(src, tgt) {
-            if (game.in_checkmate()) {
-                return "snapback"
-            }
-            let [source, target, promotion] = parse_move(correct_moves[0])
-            console.log(source, src, target, tgt)
-            if (src !== source || tgt !== target) {
-                return "snapback"
-            }
-            game.move({"from": source, "to": target, "promotion": promotion})
-            correct_moves.shift()
-            if (correct_moves.length !== 0) {
-                setTimeout(make_move, 500)
-            }
-            if (game.in_checkmate()) {
-                $("#hint-btn").css('display', 'none')
-                $("#next-btn").css('display', '')
-                document.querySelector("#next-btn").onclick = () => next()
-            }
-        },
-        onMoveEnd: function() {
-            board.position(game.fen())
-        },
-        onSnapEnd: function() { board.position(game.fen()); unhighlight() }
-    });
+    game = new Chess(problem.fen)
+    board.position(problem.fen)
+    correct_moves = problem.moves.split(";")
     document.querySelector("#hint-btn").onclick = function() {
         let [source, target, promotion] = parse_move(correct_moves[0])
         highlight(source)
