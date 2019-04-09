@@ -7,6 +7,7 @@ const $   = require("jquery")
 const { ChessBoard } = require("./chessboard/chessboard.js")
 const { problems }   = require("./problems.json")
 const random         = require("./random.js")
+const url_parameters = new URI(window.location.href).search(true)
 
 function unhighlight() {
   $("#board .square-55d63").css("background", "")
@@ -52,7 +53,10 @@ const board = ChessBoard("board", {
         if (game.in_checkmate()) {
             $("#hint-btn").css("display", "none")
             $("#next-btn").css("display", "")
-            document.querySelector("#next-btn").onclick = () => next()
+            document.querySelector("#next-btn").onclick = function() {
+                const current_problem_id = document.querySelector("#problem-num").innerHTML;
+                ("o" in url_parameters && current_problem_id != 4462) ? next(problems[current_problem_id]) : next()
+            }
             document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!"
         }
     },
@@ -68,7 +72,7 @@ function next(problem=random.choice(problems)) {
     const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")
     document.querySelector("#problem-title").innerHTML = `${problem_type} - ${problem.first}`
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
-    document.querySelector("#problem-link").href = `?id=${problem.problemid}`
+    document.querySelector("#problem-link").href = "o" in url_parameters ? `?o&id=${problem.problemid}` : `?id=${problem.problemid}`
     game = new Chess(problem.fen)
     board.position(problem.fen)
     correct_moves = problem.moves.split(";")
@@ -80,8 +84,7 @@ function next(problem=random.choice(problems)) {
 }
 
 function init() {
-    const url_parameters = new URI(window.location.href).search(true)
-    const problem = ("id" in url_parameters && url_parameters["id"] <= 4462) ? problems[url_parameters["id"] - 1] : random.choice(problems)
+    const problem = ("id" in url_parameters && url_parameters["id"] <= 4462 && url_parameters["id"] > 0) ? problems[url_parameters["id"] - 1] : random.choice(problems)
     next(problem)
 }
 
