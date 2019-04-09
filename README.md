@@ -33,6 +33,8 @@ Now open index.html in a browser to play through a problem!
 
 ### Acknowledgments
 
-Special thanks to Chris Oakman for his exquisitely documented 2013 [chessboard.js](http://chessboardjs.com) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js).
+Special thanks to Chris Oakman for his exquisitely documented 2013 [chessboard.js](https://github.com/oakmac/chessboardjs/#readme) and to Jeff Hlywa for [chess.js](https://github.com/jhlywa/chess.js#readme).
 
 Special thanks as well to [Christian Kuhn](http://www.qno.de/bio.html), from whose website I procured polgar.pgn (http://www.qno.de/schach/polgar.zip).
+
+And finally, special thanks to the maintainers of [Stockfish](https://github.com/official-stockfish/Stockfish#readme), without which this project would have taken years.
