@@ -13,16 +13,10 @@ function unhighlight() {
 }
 
 function highlight(square) {
-  var squareEl = $('#board .square-' + square);
-  
-  var background = '#a9a9a9';
-  if (squareEl.hasClass('black-3c85d') === true) {
-    background = '#696969';
-  }
-
+  const squareEl = $('#board .square-' + square);
+  const background = squareEl.hasClass('black-3c85d') ? '#696969' : '#a9a9a9'
   squareEl.css('background', background);
 }
-
 
 function parse_move(move) {
     let [source, target] = move.split("-")
