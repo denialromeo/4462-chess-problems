@@ -1,5 +1,4 @@
-// TODO: Allow alternative final moves from user if they result in checkmate. Examples 1039, 1040, 4055, 4320
-// 1676 is castling problem. 1616 is amusing double promotion.
+// 1676 is castling problem. 1616 is amusing double promotion. 1112 is en passant.
 
 const Chess = require("chess.js")
 const URI = require("urijs")
