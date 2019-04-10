@@ -34,8 +34,8 @@ function make_move() {
 const board = ChessBoard("board", {
     draggable: true,
     dropOffBoard: "snapback",
-    onDrop: function(src, tgt, piece) {
-        if (game.in_checkmate() || (game.turn() === 'w' && piece.search(/^b/) !== -1) || (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+    onDrop: function(src, tgt) {
+        if (game.in_checkmate()) {
             return "snapback"
         }
         let [source, target, promotion] = parse_move(correct_moves[0])
