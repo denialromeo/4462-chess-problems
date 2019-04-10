@@ -1,5 +1,3 @@
-// 1676 is castling problem. 1616 is amusing double promotion. 1112 is en passant.
-
 const Chess = require("chess.js")
 const URI = require("urijs")
 const $   = require("jquery")
@@ -42,12 +40,13 @@ const board = ChessBoard("board", {
         }
         let [source, target, promotion] = parse_move(correct_moves[0])
         if (correct_moves.length == 1) {
-            game.move({"from": src, "to": tgt, "promotion": promotion})
-            if (!game.in_checkmate()) {
-                game.undo()
+            const sim_game = new Chess(game.fen())
+            sim_game.move({"from": src, "to": tgt, "promotion": promotion})
+            if (!sim_game.in_checkmate()) {
                 return "snapback"
             }
             else {
+                game.move({"from": src, "to": tgt, "promotion": promotion})
                 correct_moves.shift()
             }
         }
