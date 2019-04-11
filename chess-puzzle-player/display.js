@@ -78,7 +78,9 @@ function next(problem=random.choice(problems)) {
     $("#next-btn").css("display", "none")
     $("#hint-btn").css("display", "")
     const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")
-    document.querySelector("#problem-title").innerHTML = `${problem_type} - ${problem.first}`
+    var problem_title = `${problem_type} - ${problem.first}`
+    if ("o" in url_parameters) { problem_title = `#${problem.problemid} ${problem_title}`}
+    document.querySelector("#problem-title").innerHTML = problem_title
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
     document.querySelector("#problem-link").href = "o" in url_parameters ? `?o&id=${problem.problemid}` : `?id=${problem.problemid}`
     game = new Chess(problem.fen)
