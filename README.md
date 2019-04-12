@@ -27,7 +27,7 @@ Now open index.html in a browser to play through a problem!
 * Problem 2618 seems to be a mate-in-three problem. I've removed the black knight and shifted some pieces one square to the left so it's mate-in-two.
 * Problem 2645 seems to be a mate-in-three problem. I've replaced the black queen with a pawn so it's mate-in-two.
 * Problem 3578 seems to be a mate-in-three problem. I've removed the black queen so it's mate-in-two.
-* Problem 3997 seems to be a mate-in-one problem (b3). I've moved the white knight and black queen and added a black pawn so it's mate-in-three.
+* Problem 3997 seems to be a mate-in-one problem (b3). I've moved the white knight and a black knight, removed the black queen, and added a black pawn so it's mate-in-three.
 * Problem 4423 seems to miss an escape route for the white king. I've added a black knight so it's mate in three.
 * Problem 4362 seems to be a mate-in-two problem. I've moved a black knight so it's mate in three.
 
