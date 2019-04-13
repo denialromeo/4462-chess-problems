@@ -2,20 +2,7 @@
 
 In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess: 5,334 Problems, Combinations, and Games*](https://www.amazon.com/Chess-5334-Problems-Combinations-Games/dp/1579129501/ref=tmm_hrd_swatch_0). Of these, 4,462 are checkmate problems.
 
-### Development Guide
-
-If you'd like to use these problems for your own project, simply download [problems.db](/chess-puzzle-recorder/problems.db), an SQLite database file. Enjoy!
-
-To get going with this project, install [Git](https://git-scm.com/) and [Node.js](https://nodejs.org/en/), then open your command prompt and run -
-
-```
-git clone https://github.com/denialromeo/4462-chess-problems
-cd 4462-chess-problems/chess-puzzle-player
-npm install
-npm start
-```
-
-Now open index.html in a browser to play through a problem!
+If you'd like to use these problems for your own project, simply download [problems.json](/chess-puzzle-player/problems.json). Enjoy!
 
 ### Possible Errors in Book
 

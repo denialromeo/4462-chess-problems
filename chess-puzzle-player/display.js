@@ -79,6 +79,7 @@ function next(problem=random.choice(problems)) {
     $("#hint-btn").css("display", "")
     const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")
     var problem_title = `${problem_type} - ${problem.first}`
+    document.title = `#${problem.problemid}`
     if ("o" in url_parameters) { problem_title = `#${problem.problemid} ${problem_title}`}
     document.querySelector("#problem-title").innerHTML = problem_title
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
