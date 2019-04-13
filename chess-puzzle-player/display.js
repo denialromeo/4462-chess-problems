@@ -1,3 +1,5 @@
+// BUG: Problem 3596 appears for a second, then vanishes. Why??
+
 const Chess = require("chess.js")
 const URI = require("urijs")
 const $   = require("jquery")
@@ -75,6 +77,7 @@ const board = ChessBoard("board", {
 })
 
 function next(problem=random.choice(problems)) {
+    console.log(problem)
     $("#next-btn").css("display", "none")
     $("#hint-btn").css("display", "")
     const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")

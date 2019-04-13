@@ -2,7 +2,7 @@
 
 In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess: 5,334 Problems, Combinations, and Games*](https://www.amazon.com/Chess-5334-Problems-Combinations-Games/dp/1579129501/ref=tmm_hrd_swatch_0). Of these, 4,462 are checkmate problems.
 
-If you'd like to use these problems for your own project, simply download [problems.json](/chess-puzzle-player/problems.json). Enjoy!
+If you'd like to use these problems for your own project, simply download [problems.json](https://raw.githubusercontent.com/denialromeo/4462-chess-problems/master/chess-puzzle-player/problems.json). Enjoy!
 
 ### Possible Errors in Book
 
