@@ -6,7 +6,7 @@ If you'd like to use these problems for your own project, simply download [probl
 
 ### Possible Errors in Book
 
-* Problem 1071 seems to be a mate-in-one problem (Nc7). I've tweaked the board here so it's mate-in-two.
+* Problem 1071 seems to be a mate-in-one problem (Nc7). I've added a black knight so it's mate-in-two.
 * Problem 1827 seems to be a mate-in-three problem. I've added a pawn so it's mate-in-two.
 * Problem 2300 seems to be a mate-in-three problem. I've moved a knight so it's mate-in-two.
 * Problem 2600 seems to be a mate-in-three problem. I've added a white knight so it's mate-in-two.
