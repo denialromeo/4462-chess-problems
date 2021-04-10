@@ -6,9 +6,9 @@ If you'd like to use these problems for your own project, simply download [probl
 
 ### Possible Errors in Book
 
-* Problem 1071 seems to be a mate-in-one problem (Nc7). I've removed a black knight so it's mate-in-two.
+* Problem 1071 seems to be a mate-in-one problem (Nc7). I've re-labeled it from mate-in-two to mate-in-one.
+* Problem 4362 seems to be a mate-in-two problem (Qf1, Kxg4, Qf5). I've re-labeled it from mate-in-three to mate-in-two.
 * Problem 4423 seems to miss an escape route for the white king. I've added a black knight so it's mate in three.
-* Problem 4362 seems to be a mate-in-two problem. I've moved a black knight so it's mate in three.
 
 ### Acknowledgments
 
