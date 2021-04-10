@@ -2,12 +2,12 @@
 
 In 1994, famed chess teacher [László Polgár](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess: 5,334 Problems, Combinations, and Games*](https://ausee.files.wordpress.com/2016/06/23.pdf). Of these, 4,462 are checkmate problems.
 
-If you'd like to use these problems for your own project, simply download [problems.json](https://raw.githubusercontent.com/denialromeo/4462-chess-problems/master/chess-puzzle-player/problems.json). Enjoy!
+If you'd like to use these problems for your own project, simply download [problems.json](https://raw.githubusercontent.com/denialromeo/4462-chess-problems/master/problems.json). Enjoy!
 
 ### Possible Errors in Book
 
-* Problem 1071 seems to be a mate-in-one problem (Nc7). I've re-labeled it from mate-in-two to mate-in-one.
-* Problem 4362 seems to be a mate-in-two problem (Qf1, Kxg4, Qf5). I've re-labeled it from mate-in-three to mate-in-two.
+* Problem 1071 seems to be mate-in-one (Nc7). I've re-labeled it from mate-in-two to mate-in-one.
+* Problem 4362 seems to be mate-in-two (Qf1, Kxg4, Qf5). I've re-labeled it from mate-in-three to mate-in-two.
 
 ### Acknowledgments
 
