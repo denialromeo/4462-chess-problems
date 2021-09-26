@@ -4,6 +4,7 @@ const $   = require("jquery")
 const { ChessBoard } = require("./chessboard/chessboard.js")
 const { problems }   = require("./problems.json")
 const random         = require("./random.js")
+const { enableScroll, disableScroll }   = require("./toggle-scrollbar.js")
 const url_parameters = new URI(window.location.href).search(true)
 
 function unhighlight() {
@@ -34,7 +35,9 @@ function make_move() {
 const board = ChessBoard("board", {
     draggable: true,
     dropOffBoard: "snapback",
+    onDragStart: function(src, tgt, position, orientation) { disableScroll() },
     onDrop: function(src, tgt) {
+        enableScroll()
         if (game.in_checkmate()) {
             return "snapback"
         }
