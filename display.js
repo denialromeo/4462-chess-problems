@@ -84,7 +84,7 @@ function next(problem=random.choice(problems)) {
     var problem_title = `${problem_type} - ${problem.first}`
     document.title = `#${problem.problemid}`
     if ("o" in url_parameters) { problem_title = `#${problem.problemid} ${problem_title}`}
-    if (history && history.pushState && url_parameters.id != problem.problemid) {
+    if (history && history.pushState && "o" in url_parameters && url_parameters.id != problem.problemid) {
         url_parameters.id = problem.problemid
         history.pushState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
     }
