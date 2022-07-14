@@ -5,7 +5,7 @@ const { ChessBoard } = require("./chessboard/chessboard.js")
 const { problems }   = require("./problems.json")
 const random         = require("./random.js")
 const { enableScroll, disableScroll }   = require("./toggle-scrollbar.js")
-const url_parameters = new URI(window.location.href).search(true)
+let url_parameters = new URI(window.location.href).search(true)
 
 function unhighlight() {
   $("#board .square-55d63").css("background", "")
@@ -84,6 +84,10 @@ function next(problem=random.choice(problems)) {
     var problem_title = `${problem_type} - ${problem.first}`
     document.title = `#${problem.problemid}`
     if ("o" in url_parameters) { problem_title = `#${problem.problemid} ${problem_title}`}
+    if (history && history.pushState && url_parameters.id != problem.problemid) {
+        url_parameters.id = problem.problemid
+        history.pushState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
+    }
     document.querySelector("#problem-title").innerHTML = problem_title
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
     document.querySelector("#problem-link").href = "o" in url_parameters ? `?o&id=${problem.problemid}` : `?id=${problem.problemid}`
@@ -100,6 +104,11 @@ function next(problem=random.choice(problems)) {
 function init() {
     const problem = ("id" in url_parameters && url_parameters["id"] <= 4462 && url_parameters["id"] > 0) ? problems[url_parameters["id"] - 1] : random.choice(problems)
     next(problem)
+}
+
+window.onpopstate = function(event) {
+    url_parameters = event.state || url_parameters
+    init()
 }
 
 // Exports
