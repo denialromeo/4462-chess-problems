@@ -125,7 +125,7 @@ function pushstate() {
 
 window.onpopstate = function(event) {
     if (event.state) {
-        url_parameters = event.state
+        url_parameters["id"] = event.state["id"]
         next(problems[url_parameters["id"] - 1], false)
     }
 }
