@@ -66,7 +66,16 @@ const board = ChessBoard("board", {
             $("#next-btn").css("display", "")
             document.querySelector("#next-btn").onclick = function() {
                 const current_problem_id = document.querySelector("#problem-num").innerHTML;
-                ("o" in url_parameters && current_problem_id != 4462) ? next(problems[current_problem_id]) : next()
+                if ("o" in url_parameters && current_problem_id != 4462) {
+                    next(problems[current_problem_id])
+                    pushstate()
+                } else {
+                    next()
+                    if (history && history.replaceState && "id" in url_parameters) {
+                        delete url_parameters["id"]
+                        history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
+                    }
+                }
             }
             document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!"
         }
@@ -77,22 +86,18 @@ const board = ChessBoard("board", {
     onSnapEnd: function() { board.position(game.fen()); unhighlight() }
 })
 
-function next(problem=random.choice(problems)) {
+function next(problem=random.choice(problems), useAnimation=true) {
     $("#next-btn").css("display", "none")
     $("#hint-btn").css("display", "")
     const problem_type = "Checkm" + problem.type.slice(1) + " Move" + (problem.type.endsWith("One") ? "" : "s")
     var problem_title = `${problem_type} - ${problem.first}`
     document.title = `#${problem.problemid}`
     if ("o" in url_parameters) { problem_title = `#${problem.problemid} ${problem_title}`}
-    if (history && history.pushState && "o" in url_parameters && url_parameters.id != problem.problemid) {
-        url_parameters.id = problem.problemid
-        history.pushState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
-    }
     document.querySelector("#problem-title").innerHTML = problem_title
     document.querySelector("#problem-num").innerHTML = `${problem.problemid}`
     document.querySelector("#problem-link").href = "o" in url_parameters ? `?o&id=${problem.problemid}` : `?id=${problem.problemid}`
     game = new Chess(problem.fen)
-    board.position(problem.fen)
+    board.position(problem.fen, useAnimation)
     correct_moves = problem.moves.split(";")
     document.querySelector("#hint-btn").onclick = function() {
         let [source, target, promotion] = parse_move(correct_moves[0])
@@ -104,11 +109,25 @@ function next(problem=random.choice(problems)) {
 function init() {
     const problem = ("id" in url_parameters && url_parameters["id"] <= 4462 && url_parameters["id"] > 0) ? problems[url_parameters["id"] - 1] : random.choice(problems)
     next(problem)
+    pushstate()
+}
+
+function pushstate() {
+    if (history && history.pushState && "o" in url_parameters) {
+        const current_problem_id = document.querySelector("#problem-num").innerHTML
+        url_parameters["id"] = current_problem_id
+        if (history.state && history.state["id"] == current_problem_id) {
+            return
+        }
+        history.pushState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
+    }
 }
 
 window.onpopstate = function(event) {
-    url_parameters = event.state || url_parameters
-    init()
+    if (event.state) {
+        url_parameters = event.state
+        next(problems[url_parameters["id"] - 1], false)
+    }
 }
 
 // Exports
