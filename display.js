@@ -45,10 +45,21 @@ function next_problem() {
         }
     }
 }
+function previous_problem() {
+    const current_problem_id = document.querySelector("#problem-num").innerHTML;
+    if ("o" in url_parameters && current_problem_id != 1) {
+        next(problems[current_problem_id - 2])
+        pushstate()
+    }
+}
 document.body.onkeydown = function(e) {
-  if (e.key == " " || e.code == "Space") {
+  if (e.key == " " || e.code == "Space" || e.code == "ArrowRight") {
     e.preventDefault()
     next_problem()
+  }
+  if (e.code == "ArrowLeft") {
+    e.preventDefault()
+    previous_problem()
   }
 }
 const board = ChessBoard("board", {
