@@ -32,6 +32,25 @@ function make_move() {
     board.move(source + "-" + target)
     correct_moves.shift()
 }
+function next_problem() {
+    const current_problem_id = document.querySelector("#problem-num").innerHTML;
+    if ("o" in url_parameters && current_problem_id != 4462) {
+        next(problems[current_problem_id])
+        pushstate()
+    } else {
+        next()
+        if (history && history.replaceState && "id" in url_parameters) {
+            delete url_parameters["id"]
+            history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
+        }
+    }
+}
+document.body.onkeydown = function(e) {
+  if (e.key == " " || e.code == "Space") {
+    e.preventDefault()
+    next_problem()
+  }
+}
 const board = ChessBoard("board", {
     draggable: true,
     dropOffBoard: "snapback",
@@ -64,19 +83,7 @@ const board = ChessBoard("board", {
         if (game.in_checkmate()) {
             $("#hint-btn").css("display", "none")
             $("#next-btn").css("display", "")
-            document.querySelector("#next-btn").onclick = function() {
-                const current_problem_id = document.querySelector("#problem-num").innerHTML;
-                if ("o" in url_parameters && current_problem_id != 4462) {
-                    next(problems[current_problem_id])
-                    pushstate()
-                } else {
-                    next()
-                    if (history && history.replaceState && "id" in url_parameters) {
-                        delete url_parameters["id"]
-                        history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
-                    }
-                }
-            }
+            document.querySelector("#next-btn").onclick = next_problem
             document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!"
         }
     },
