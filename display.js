@@ -53,7 +53,12 @@ function previous_problem() {
     }
 }
 document.body.onkeydown = function(e) {
-  if (e.key == " " || e.code == "Space" || e.code == "ArrowRight") {
+  unhighlight();
+  if (e.key == " " || e.code == "Space") {
+    e.preventDefault()
+    next_problem()
+  }
+  if (e.code == "ArrowRight") {
     e.preventDefault()
     next_problem()
   }

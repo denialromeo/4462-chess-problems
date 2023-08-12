@@ -1,6 +1,6 @@
 ## 4462 Chess Problems
 
-In 1994, famed chess teacher [L·szlÛ Polg·r](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess: 5,334 Problems, Combinations, and Games*](https://ausee.files.wordpress.com/2016/06/23.pdf).
+In 1994, famed chess teacher [L√°szl√≥ Polg√°r](https://en.wikipedia.org/wiki/L%C3%A1szl%C3%B3_Polg%C3%A1r) published [*Chess: 5,334 Problems, Combinations, and Games*](https://ausee.files.wordpress.com/2016/06/23.pdf).
 
 Of these, 4,462 are checkmate problems. You can play through them [here](http://danielmoore.us/chess-puzzles).
 
@@ -10,12 +10,13 @@ To run this locally, run the below and then open `index.html` in your browser.
 
 ```
 npm install
-npm run start
+npm start
 ```
 
 ### Possible Errors in Book
 
 * Problem [1071](http://danielmoore.us/chess-puzzles?id=1071) seems to be mate-in-one (Nc7). I've re-labeled it from mate-in-two to mate-in-one.
+* Problem [1325](http://danielmoore.us/chess-puzzles?id=1325) seems to have two light-square bishops. This error isn't present in the 1994 edition.
 * Problem [4362](http://danielmoore.us/chess-puzzles?id=4362) seems to be mate-in-two (Qf1, Kxg4, Qf5). I've re-labeled it from mate-in-three to mate-in-two.
 
 ### Acknowledgments
