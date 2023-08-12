@@ -16,7 +16,7 @@ npm start
 ### Possible Errors in Book
 
 * Problem [1071](http://danielmoore.us/chess-puzzles?id=1071) seems to be mate-in-one (Nc7). I've re-labeled it from mate-in-two to mate-in-one.
-* Problem [1325](http://danielmoore.us/chess-puzzles?id=1325) seems to have two light-square bishops. This error isn't present in the 1994 edition.
+* Problem [1325](http://danielmoore.us/chess-puzzles?id=1325) seems to have two light-square white bishops. This error isn't present in the 1994 edition.
 * Problem [4362](http://danielmoore.us/chess-puzzles?id=4362) seems to be mate-in-two (Qf1, Kxg4, Qf5). I've re-labeled it from mate-in-three to mate-in-two.
 
 ### Acknowledgments
