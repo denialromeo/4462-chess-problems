@@ -6,13 +6,17 @@ const { ChessBoard } = require("./chessboard/chessboard.js");
 const { problems } = require("./problems.json");
 const random = require("./random.js");
 const { enableScroll, disableScroll } = require("./toggle-scrollbar.js");
-let url_parameters = new URI(window.location.href).search(true);
+let url_parameters = getUrlParameters();
 
 const TOTAL_PROBLEMS = 4462;
 const HIGHLIGHT_COLORS = {
   black: "#696969",
   white: "#a9a9a9"
 };
+
+function getUrlParameters() {
+  return new URI(window.location.href).search(true);
+}
 
 function unhighlight() {
   $("#board .square-55d63").css("background", "");
@@ -50,16 +54,27 @@ function previous_problem() {
 }
 
 function change_problem(direction) {
-  const current_problem_id = document.querySelector("#problem-num").innerHTML;
+  const current_problem_id = parseInt(document.querySelector("#problem-num").innerHTML);
   if ("o" in url_parameters && current_problem_id !== (direction === 1 ? TOTAL_PROBLEMS : 1)) {
-    next(problems[current_problem_id - 1 + direction]);
-    pushstate();
+    const nextProblem = problems[current_problem_id - 1 + direction];
+    next(nextProblem);
+    pushState(nextProblem.problemid);
   } else if (direction === 1) {
     next();
-    if (history && history.replaceState && "id" in url_parameters) {
+    if (window.history && window.history.replaceState && "id" in url_parameters) {
       delete url_parameters["id"];
-      history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString());
+      window.history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString());
     }
+  }
+}
+
+function pushState(problemId) {
+  if (window.history && window.history.pushState && "o" in url_parameters) {
+    url_parameters["id"] = problemId;
+    if (window.history.state && window.history.state["id"] === problemId) {
+      return;
+    }
+    window.history.pushState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString());
   }
 }
 
@@ -151,24 +166,13 @@ function next(problem = random.choice(problems), useAnimation = true) {
 function init() {
   const problem = ("id" in url_parameters && url_parameters["id"] <= TOTAL_PROBLEMS && url_parameters["id"] > 0) ? problems[url_parameters["id"] - 1] : random.choice(problems);
   next(problem);
-  pushstate();
-}
-
-function pushstate() {
-  if (history && history.pushState && "o" in url_parameters) {
-    const current_problem_id = document.querySelector("#problem-num").innerHTML;
-    url_parameters["id"] = current_problem_id;
-    if (history.state && history.state["id"] === current_problem_id) {
-      return;
-    }
-    history.pushState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString());
-  }
+  pushState(problem.problemid);
 }
 
 window.onpopstate = function(event) {
-  if (event.state) {
-    url_parameters["id"] = event.state["id"];
-    next(problems[url_parameters["id"] - 1], false);
+  if (event.state && "id" in event.state) {
+    const problemId = event.state["id"];
+    next(problems[problemId - 1], false);
   }
 };
 
