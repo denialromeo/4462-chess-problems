@@ -1,113 +1,129 @@
-const Chess = require("chess.js")
-const URI = require("urijs")
-const $   = require("jquery")
-const { ChessBoard } = require("./chessboard/chessboard.js")
-const { problems }   = require("./problems.json")
-const random         = require("./random.js")
-const { enableScroll, disableScroll }   = require("./toggle-scrollbar.js")
-let url_parameters = new URI(window.location.href).search(true)
+// Module Imports
+const Chess = require("chess.js");
+const URI = require("urijs");
+const $ = require("jquery");
+const { ChessBoard } = require("./chessboard/chessboard.js");
+const { problems } = require("./problems.json");
+const random = require("./random.js");
+const { enableScroll, disableScroll } = require("./toggle-scrollbar.js");
+let url_parameters = new URI(window.location.href).search(true);
 
+// Unhighlight board
 function unhighlight() {
-  $("#board .square-55d63").css("background", "")
+  $("#board .square-55d63").css("background", "");
 }
 
+// Highlight specific square
 function highlight(square) {
-  const squareEl = $("#board .square-" + square)
-  const background = squareEl.hasClass("black-3c85d") ? "#696969" : "#a9a9a9"
-  squareEl.css("background", background)
+  const squareEl = $("#board .square-" + square);
+  const background = squareEl.hasClass("black-3c85d") ? "#696969" : "#a9a9a9";
+  squareEl.css("background", background);
 }
 
+// Parse move from string to components
 function parse_move(move) {
-    let [source, target] = move.split("-")
-    let promotion = target.length == 2 ? "q" : target[2]
-    target = target.slice(0,2)
-    return [source, target, promotion]
+  let [source, target] = move.split("-");
+  let promotion = target.length == 2 ? "q" : target[2];
+  target = target.slice(0, 2);
+  return [source, target, promotion];
 }
 
-var game
-var correct_moves
+var game;
+var correct_moves;
+
+// Make the move on the board
 function make_move() {
-    let [source, target, promotion] = parse_move(correct_moves[0])
-    game.move({"from": source, "to": target, "promotion": promotion})
-    board.move(source + "-" + target)
-    correct_moves.shift()
+  let [source, target, promotion] = parse_move(correct_moves[0]);
+  game.move({ "from": source, "to": target, "promotion": promotion });
+  board.move(source + "-" + target);
+  correct_moves.shift();
 }
+
+// Load next problem
 function next_problem() {
-    const current_problem_id = document.querySelector("#problem-num").innerHTML;
-    if ("o" in url_parameters && current_problem_id != 4462) {
-        next(problems[current_problem_id])
-        pushstate()
-    } else {
-        next()
-        if (history && history.replaceState && "id" in url_parameters) {
-            delete url_parameters["id"]
-            history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString())
-        }
-    }
+  change_problem(1);
 }
+
+// Load previous problem
 function previous_problem() {
-    const current_problem_id = document.querySelector("#problem-num").innerHTML;
-    if ("o" in url_parameters && current_problem_id != 1) {
-        next(problems[current_problem_id - 2])
-        pushstate()
+  change_problem(-1);
+}
+
+// Common function to handle problem change
+function change_problem(direction) {
+  const current_problem_id = document.querySelector("#problem-num").innerHTML;
+  if ("o" in url_parameters && current_problem_id != (direction === 1 ? 4462 : 1)) {
+    next(problems[current_problem_id - 1 + direction]);
+    pushstate();
+  } else if (direction === 1) {
+    next();
+    if (history && history.replaceState && "id" in url_parameters) {
+      delete url_parameters["id"];
+      history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString());
     }
+  }
 }
-document.body.onkeydown = function(e) {
+
+// Event handler for keydown
+document.body.onkeydown = function (e) {
   unhighlight();
-  if (e.key == " " || e.code == "Space") {
-    e.preventDefault()
-    next_problem()
+  e.preventDefault();
+
+  if (e.key == " " || e.code == "Space" || e.code == "ArrowRight") {
+    next_problem();
   }
-  if (e.code == "ArrowRight") {
-    e.preventDefault()
-    next_problem()
-  }
+
   if (e.code == "ArrowLeft") {
-    e.preventDefault()
-    previous_problem()
+    previous_problem();
+  }
+};
+
+// Handler for drop event
+function onDropHandler(src, tgt) {
+  enableScroll();
+
+  if (game.in_checkmate()) {
+    return "snapback";
+  }
+
+  let [source, target, promotion] = parse_move(correct_moves[0]);
+
+  if (correct_moves.length == 1) {
+    const sim_game = new Chess(game.fen());
+    sim_game.move({ "from": src, "to": tgt, "promotion": promotion });
+
+    if (!sim_game.in_checkmate()) {
+      return "snapback";
+    } else {
+      game.move({ "from": src, "to": tgt, "promotion": promotion });
+      correct_moves.shift();
+    }
+  } else {
+    if (src !== source || tgt !== target) {
+      return "snapback";
+    }
+    game.move({ "from": source, "to": target, "promotion": promotion });
+    correct_moves.shift();
+    setTimeout(make_move, 500);
+  }
+
+  if (game.in_checkmate()) {
+    $("#hint-btn").css("display", "none");
+    $("#next-btn").css("display", "");
+    document.querySelector("#next-btn").onclick = next_problem;
+    document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!";
   }
 }
+
+// Chessboard configuration
 const board = ChessBoard("board", {
-    draggable: true,
-    dropOffBoard: "snapback",
-    onDragStart: function(src, tgt, position, orientation) { disableScroll() },
-    onDrop: function(src, tgt) {
-        enableScroll()
-        if (game.in_checkmate()) {
-            return "snapback"
-        }
-        let [source, target, promotion] = parse_move(correct_moves[0])
-        if (correct_moves.length == 1) {
-            const sim_game = new Chess(game.fen())
-            sim_game.move({"from": src, "to": tgt, "promotion": promotion})
-            if (!sim_game.in_checkmate()) {
-                return "snapback"
-            }
-            else {
-                game.move({"from": src, "to": tgt, "promotion": promotion})
-                correct_moves.shift()
-            }
-        }
-        else {
-            if (src !== source || tgt !== target) {
-                return "snapback"
-            }
-            game.move({"from": source, "to": target, "promotion": promotion})
-            correct_moves.shift()
-            setTimeout(make_move, 500)
-        }
-        if (game.in_checkmate()) {
-            $("#hint-btn").css("display", "none")
-            $("#next-btn").css("display", "")
-            document.querySelector("#next-btn").onclick = next_problem
-            document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!"
-        }
-    },
-    onMoveEnd: function() {
-        board.position(game.fen())
-    },
-    onSnapEnd: function() { board.position(game.fen()); unhighlight() }
-})
+  draggable: true,
+  dropOffBoard: "snapback",
+  onDragStart: function (src, tgt, position, orientation) { disableScroll(); },
+  onDrop: onDropHandler,
+  onMoveEnd: function () { board.position(game.fen()); },
+  onSnapEnd: function () { board.position(game.fen()); unhighlight(); }
+});
 
 function next(problem=random.choice(problems), useAnimation=true) {
     $("#next-btn").css("display", "none")
