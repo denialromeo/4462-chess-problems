@@ -81,6 +81,12 @@ function pushState(problemId) {
 document.body.onkeydown = function(e) {
   e.preventDefault();
 
+  // If the game is in checkmate and space is pressed, go to the next problem.
+  if (game.in_checkmate() && (e.key === " " || e.code === "Space")) {
+    next_problem();
+    return;
+  }
+
   if (e.key === " " || e.code === "Space") {
     const { source, target } = parse_move(correct_moves[0]);
     highlight(source);
