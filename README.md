@@ -6,7 +6,7 @@ Of these, 4,462 are checkmate problems. You can play through them [here](http://
 
 If you'd like to use these problems for your own project, simply download [problems.json](https://raw.githubusercontent.com/denialromeo/4462-chess-problems/master/problems.json). Enjoy!
 
-To run this locally, run the below and then open `index.html` in your browser. (You may need Node 14.)
+To run this locally, run the below and then open `index.html` in your browser.
 
 ```
 npm install
