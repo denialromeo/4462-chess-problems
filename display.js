@@ -149,6 +149,7 @@ const board = ChessBoard("board", {
 });
 
 function next(problem = random.choice(problems), useAnimation = true) {
+  unhighlight();
   $("#next-btn").css("display", "none");
   $("#hint-btn").css("display", "");
   const problem_type = `Checkm${problem.type.slice(1)} Move${problem.type.endsWith("One") ? "" : "s"}`;
