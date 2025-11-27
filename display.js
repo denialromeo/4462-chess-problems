@@ -89,10 +89,9 @@ document.body.onkeydown = function(e) {
 
   if (e.key === " " || e.code === "Space") {
     const { source, target } = parse_move(correct_moves[0]);
+    unhighlight();
     highlight(source);
     highlight(target);
-  } else {
-    unhighlight();
   }
 
   if (e.code === "ArrowRight") {
