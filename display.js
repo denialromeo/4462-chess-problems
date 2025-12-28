@@ -1,31 +1,19 @@
 // Module Imports
-const Chess = require("chess.js");
-const URI = require("urijs");
-const $ = require("jquery");
-const { ChessBoard } = require("./chessboard/chessboard.js");
-const { problems } = require("./problems.json");
-const { enableScroll, disableScroll } = require("./toggle-scrollbar.js");
+import * as ChessModule from "chess.js";
+const Chess = ChessModule.Chess || ChessModule.default || ChessModule;
+import URI from "urijs";
+import {Chessboard, INPUT_EVENT_TYPE, COLOR} from "cm-chessboard";
+import {Markers, MARKER_TYPE} from "cm-chessboard/src/extensions/markers/Markers.js";
+import problemsData from "./problems.json";
+const problems = problemsData.problems;
+
 let url_parameters = getUrlParameters();
 
 const TOTAL_PROBLEMS = 4462;
 const STORAGE_KEY = "lastProblemId";
-const HIGHLIGHT_COLORS = {
-  black: "#696969",
-  white: "#a9a9a9"
-};
 
 function getUrlParameters() {
   return new URI(window.location.href).search(true);
-}
-
-function unhighlight() {
-  $("#board .square-55d63").css("background", "");
-}
-
-function highlight(square) {
-  const squareEl = $("#board .square-" + square);
-  const color = squareEl.hasClass("black-3c85d") ? HIGHLIGHT_COLORS.black : HIGHLIGHT_COLORS.white;
-  squareEl.css("background", color);
 }
 
 function parse_move(move) {
@@ -38,12 +26,14 @@ function parse_move(move) {
 var game;
 var correct_moves;
 var currentProblemId;
+var board;
 
 function make_move() {
   const { source, target, promotion } = parse_move(correct_moves[0]);
   game.move({ from: source, to: target, promotion });
-  board.move(`${source}-${target}`);
-  correct_moves.shift();
+  board.movePiece(source, target, true).then(() => {
+    correct_moves.shift();
+  });
 }
 
 function next_problem() {
@@ -79,6 +69,66 @@ function pushState(problemId) {
   }
 }
 
+function showHint() {
+  const { source, target } = parse_move(correct_moves[0]);
+  board.removeMarkers(MARKER_TYPE.framePrimary);
+  board.addMarker(MARKER_TYPE.framePrimary, source);
+  board.addMarker(MARKER_TYPE.framePrimary, target);
+}
+
+function inputHandler(event) {
+  if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
+    // Remove any hint markers when starting a move
+    board.removeMarkers(MARKER_TYPE.framePrimary);
+    return true;
+  } else if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
+    const src = event.squareFrom;
+    const tgt = event.squareTo;
+
+    if (game.in_checkmate()) {
+      return false;
+    }
+
+    const { source, target, promotion } = parse_move(correct_moves[0]);
+
+    if (correct_moves.length === 1) {
+      // Last move - check if it results in checkmate
+      const sim_game = new Chess(game.fen());
+      const moveResult = sim_game.move({ from: src, to: tgt, promotion });
+
+      if (!moveResult || !sim_game.in_checkmate()) {
+        return false;
+      } else {
+        game.move({ from: src, to: tgt, promotion });
+        correct_moves.shift();
+        onPuzzleSolved();
+        return true;
+      }
+    } else {
+      // Not last move - must match exactly
+      if (src !== source || tgt !== target) {
+        return false;
+      }
+      game.move({ from: source, to: target, promotion });
+      correct_moves.shift();
+      // Schedule opponent's response
+      setTimeout(make_move, 500);
+      return true;
+    }
+  } else if (event.type === INPUT_EVENT_TYPE.moveInputFinished) {
+    // Update board position to match game state
+    board.setPosition(game.fen(), false);
+  }
+}
+
+function onPuzzleSolved() {
+  document.getElementById("hint-btn").style.display = "none";
+  document.getElementById("next-btn").style.display = "";
+  document.querySelector("#next-btn").onclick = next_problem;
+  document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!";
+  board.disableMoveInput();
+}
+
 document.body.onkeydown = function(e) {
   // Don't intercept keys when typing in the input field
   if (e.target.id === "problem-input") {
@@ -88,16 +138,13 @@ document.body.onkeydown = function(e) {
   e.preventDefault();
 
   // If the game is in checkmate and space is pressed, go to the next problem.
-  if (game.in_checkmate() && (e.key === " " || e.code === "Space")) {
+  if (game && game.in_checkmate() && (e.key === " " || e.code === "Space")) {
     next_problem();
     return;
   }
 
   if (e.key === " " || e.code === "Space") {
-    const { source, target } = parse_move(correct_moves[0]);
-    unhighlight();
-    highlight(source);
-    highlight(target);
+    showHint();
   }
 
   if (e.code === "ArrowRight") {
@@ -109,55 +156,10 @@ document.body.onkeydown = function(e) {
   }
 };
 
-function onDropHandler(src, tgt) {
-  enableScroll();
-
-  if (game.in_checkmate()) {
-    return "snapback";
-  }
-
-  const { source, target, promotion } = parse_move(correct_moves[0]);
-
-  if (correct_moves.length === 1) {
-    const sim_game = new Chess(game.fen());
-    sim_game.move({ from: src, to: tgt, promotion });
-
-    if (!sim_game.in_checkmate()) {
-      return "snapback";
-    } else {
-      game.move({ from: src, to: tgt, promotion });
-      correct_moves.shift();
-    }
-  } else {
-    if (src !== source || tgt !== target) {
-      return "snapback";
-    }
-    game.move({ from: source, to: target, promotion });
-    correct_moves.shift();
-    setTimeout(make_move, 500);
-  }
-
-  if (game.in_checkmate()) {
-    $("#hint-btn").css("display", "none");
-    $("#next-btn").css("display", "");
-    document.querySelector("#next-btn").onclick = next_problem;
-    document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!";
-  }
-}
-
-const board = ChessBoard("board", {
-  draggable: true,
-  dropOffBoard: "snapback",
-  onDragStart: () => disableScroll(),
-  onDrop: onDropHandler,
-  onMoveEnd: () => board.position(game.fen()),
-  onSnapEnd: () => { board.position(game.fen()); unhighlight(); }
-});
-
 function next(problem = problems[0], useAnimation = true) {
-  unhighlight();
-  $("#next-btn").css("display", "none");
-  $("#hint-btn").css("display", "");
+  board.removeMarkers(MARKER_TYPE.framePrimary);
+  document.getElementById("next-btn").style.display = "none";
+  document.getElementById("hint-btn").style.display = "";
   currentProblemId = problem.problemid;
   localStorage.setItem(STORAGE_KEY, currentProblemId);
   const problem_type = `Checkm${problem.type.slice(1)} Move${problem.type.endsWith("One") ? "" : "s"}`;
@@ -166,13 +168,14 @@ function next(problem = problems[0], useAnimation = true) {
   document.querySelector("#problem-title").innerHTML = problem_title;
   document.querySelector("#problem-input").value = problem.problemid;
   game = new Chess(problem.fen);
-  board.position(problem.fen, useAnimation);
+  board.setPosition(problem.fen, useAnimation);
   correct_moves = problem.moves.split(";");
-  document.querySelector("#hint-btn").onclick = function() {
-    const { source, target } = parse_move(correct_moves[0]);
-    highlight(source);
-    highlight(target);
-  };
+
+  // Determine which color moves first
+  const turnColor = game.turn() === 'w' ? COLOR.white : COLOR.black;
+  board.enableMoveInput(inputHandler, turnColor);
+
+  document.querySelector("#hint-btn").onclick = showHint;
 }
 
 function getInitialProblem() {
@@ -190,8 +193,21 @@ function getInitialProblem() {
 }
 
 function init() {
+  // Create the board
+  board = new Chessboard(document.getElementById("board"), {
+    assetsUrl: "node_modules/cm-chessboard/assets/",
+    style: {
+      cssClass: "default",
+      showCoordinates: true,
+      aspectRatio: 1
+    },
+    extensions: [
+      {class: Markers, props: {autoMarkers: MARKER_TYPE.frame}}
+    ]
+  });
+
   const problem = getInitialProblem();
-  next(problem);
+  next(problem, false);
   pushState(problem.problemid);
 
   document.querySelector("#go-btn").onclick = function() {
@@ -215,6 +231,4 @@ window.onpopstate = function(event) {
 };
 
 // Exports
-module.exports = {
-  init
-};
+export { init };

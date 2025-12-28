@@ -1,5 +1,6 @@
-require("!style-loader!css-loader!./chessboard/chessboard.css")
+import "cm-chessboard/assets/chessboard.css";
+import "cm-chessboard/assets/extensions/markers/markers.css";
 
-const { init } = require("./display.js")
+import { init } from "./display.js";
 
-init()
+init();
