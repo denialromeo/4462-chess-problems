@@ -37,6 +37,7 @@ function parse_move(move) {
 
 var game;
 var correct_moves;
+var currentProblemId;
 
 function make_move() {
   const { source, target, promotion } = parse_move(correct_moves[0]);
@@ -54,17 +55,17 @@ function previous_problem() {
 }
 
 function change_problem(direction) {
-  const current_problem_id = parseInt(document.querySelector("#problem-num").innerHTML);
-  if ("o" in url_parameters && current_problem_id !== (direction === 1 ? TOTAL_PROBLEMS : 1)) {
-    const nextProblem = problems[current_problem_id - 1 + direction];
-    next(nextProblem);
-    pushState(nextProblem.problemid);
-  } else if (direction === 1) {
-    next();
-    if (window.history && window.history.replaceState && "id" in url_parameters) {
-      delete url_parameters["id"];
-      window.history.replaceState(url_parameters, "", new URI(window.location.href).search(url_parameters).toString());
-    }
+  const newId = currentProblemId + direction;
+  if (newId >= 1 && newId <= TOTAL_PROBLEMS) {
+    next(problems[newId - 1]);
+    pushState(newId);
+  }
+}
+
+function goToProblem(id) {
+  if (id >= 1 && id <= TOTAL_PROBLEMS) {
+    next(problems[id - 1]);
+    pushState(id);
   }
 }
 
@@ -79,6 +80,11 @@ function pushState(problemId) {
 }
 
 document.body.onkeydown = function(e) {
+  // Don't intercept keys when typing in the input field
+  if (e.target.id === "problem-input") {
+    return;
+  }
+
   e.preventDefault();
 
   // If the game is in checkmate and space is pressed, go to the next problem.
@@ -148,17 +154,16 @@ const board = ChessBoard("board", {
   onSnapEnd: () => { board.position(game.fen()); unhighlight(); }
 });
 
-function next(problem = random.choice(problems), useAnimation = true) {
+function next(problem = problems[0], useAnimation = true) {
   unhighlight();
   $("#next-btn").css("display", "none");
   $("#hint-btn").css("display", "");
+  currentProblemId = problem.problemid;
   const problem_type = `Checkm${problem.type.slice(1)} Move${problem.type.endsWith("One") ? "" : "s"}`;
-  var problem_title = `${problem_type} - ${problem.first}`;
+  var problem_title = `#${problem.problemid} ${problem_type} - ${problem.first}`;
   document.title = `#${problem.problemid}`;
-  if ("o" in url_parameters) { problem_title = `#${problem.problemid} ${problem_title}`;}
   document.querySelector("#problem-title").innerHTML = problem_title;
-  document.querySelector("#problem-num").innerHTML = `${problem.problemid}`;
-  document.querySelector("#problem-link").href = "o" in url_parameters ? `?o&id=${problem.problemid}` : `?id=${problem.problemid}`;
+  document.querySelector("#problem-input").value = problem.problemid;
   game = new Chess(problem.fen);
   board.position(problem.fen, useAnimation);
   correct_moves = problem.moves.split(";");
@@ -170,9 +175,21 @@ function next(problem = random.choice(problems), useAnimation = true) {
 }
 
 function init() {
-  const problem = ("id" in url_parameters && url_parameters["id"] <= TOTAL_PROBLEMS && url_parameters["id"] > 0) ? problems[url_parameters["id"] - 1] : random.choice(problems);
+  const problem = ("id" in url_parameters && url_parameters["id"] <= TOTAL_PROBLEMS && url_parameters["id"] > 0) ? problems[url_parameters["id"] - 1] : problems[0];
   next(problem);
   pushState(problem.problemid);
+
+  document.querySelector("#go-btn").onclick = function() {
+    const id = parseInt(document.querySelector("#problem-input").value);
+    goToProblem(id);
+  };
+
+  document.querySelector("#problem-input").onkeydown = function(e) {
+    if (e.key === "Enter") {
+      const id = parseInt(document.querySelector("#problem-input").value);
+      goToProblem(id);
+    }
+  };
 }
 
 window.onpopstate = function(event) {

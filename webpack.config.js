@@ -2,7 +2,7 @@ module.exports = {
     entry: "./index.js",
     output: {
         path: __dirname + "/dist",
-        filename: "chess-puzzle-player.js"
+        filename: "chess-puzzle-player.[contenthash].js"
     },
     module: {
         rules: [

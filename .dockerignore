@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.gitignore
+README.md
+*.py
+*.pgn
+Dockerfile
+.dockerignore

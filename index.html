@@ -10,13 +10,14 @@
         <br>
         <input type="button" id="hint-btn" value="Hint" />
         <input type="button" id="next-btn" style="display:none" value="Next" />
-        </center>
-        <center>
-        <p style="font-family:Helvetica">
-            Above is problem <span id="problem-num"></span> from Polgár's book. <a id="problem-link" target="_self">Here</a> is a link to return to it in the future.
-        </p>
+        <br><br>
+        <div style="font-family:Helvetica">
+            <label for="problem-input">Go to problem:</label>
+            <input type="number" id="problem-input" min="1" max="4462" style="width:60px" />
+            <input type="button" id="go-btn" value="Go" />
+        </div>
         </center>
 
-        <script src="dist/chess-puzzle-player.js"></script>
+        <script src="dist/chess-puzzle-player.HASH.js"></script>
     </body>
 </html>
