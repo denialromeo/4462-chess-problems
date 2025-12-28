@@ -4,11 +4,11 @@ const URI = require("urijs");
 const $ = require("jquery");
 const { ChessBoard } = require("./chessboard/chessboard.js");
 const { problems } = require("./problems.json");
-const random = require("./random.js");
 const { enableScroll, disableScroll } = require("./toggle-scrollbar.js");
 let url_parameters = getUrlParameters();
 
 const TOTAL_PROBLEMS = 4462;
+const STORAGE_KEY = "lastProblemId";
 const HIGHLIGHT_COLORS = {
   black: "#696969",
   white: "#a9a9a9"
@@ -159,6 +159,7 @@ function next(problem = problems[0], useAnimation = true) {
   $("#next-btn").css("display", "none");
   $("#hint-btn").css("display", "");
   currentProblemId = problem.problemid;
+  localStorage.setItem(STORAGE_KEY, currentProblemId);
   const problem_type = `Checkm${problem.type.slice(1)} Move${problem.type.endsWith("One") ? "" : "s"}`;
   var problem_title = `#${problem.problemid} ${problem_type} - ${problem.first}`;
   document.title = `#${problem.problemid}`;
@@ -174,8 +175,22 @@ function next(problem = problems[0], useAnimation = true) {
   };
 }
 
+function getInitialProblem() {
+  // First check URL parameter
+  if ("id" in url_parameters && url_parameters["id"] <= TOTAL_PROBLEMS && url_parameters["id"] > 0) {
+    return problems[url_parameters["id"] - 1];
+  }
+  // Then check localStorage for last visited problem
+  const savedId = parseInt(localStorage.getItem(STORAGE_KEY));
+  if (savedId && savedId >= 1 && savedId <= TOTAL_PROBLEMS) {
+    return problems[savedId - 1];
+  }
+  // Default to problem 1
+  return problems[0];
+}
+
 function init() {
-  const problem = ("id" in url_parameters && url_parameters["id"] <= TOTAL_PROBLEMS && url_parameters["id"] > 0) ? problems[url_parameters["id"] - 1] : problems[0];
+  const problem = getInitialProblem();
   next(problem);
   pushState(problem.problemid);
 
