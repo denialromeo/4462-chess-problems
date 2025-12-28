@@ -22021,7 +22021,7 @@ him from doing it again.  Thanks to everyone who made this possible.
 [White "Mate in two"]
 [Black "White to move"]
 [Result "*"]
-[FEN "r3k1K1/1RR3p1/7p/8/8/8/8/8 w q - 0 1"]
+[FEN "r3k1K1/1RR3p1/7p/8/8/8/8/8 w - - 0 1"]
 
 1.Rf7 *
 
