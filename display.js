@@ -7,6 +7,61 @@ import {Markers, MARKER_TYPE} from "cm-chessboard/src/extensions/markers/Markers
 import problemsData from "./problems.json";
 const problems = problemsData.problems;
 
+// Dutch motivational quotes
+const SUCCESS_QUOTES = [
+  "🎉 Super gedaan!",
+  "⭐ Wat een slimmerik!",
+  "🏆 Geweldig! Je bent een kampioen!",
+  "🚀 Wauw, dat was snel!",
+  "👏 Fantastisch gespeeld!",
+  "🌟 Je wordt steeds beter!",
+  "💪 Knap hoor!",
+  "🎯 Precies goed!",
+  "✨ Briljant!",
+  "🦁 Jij bent een echte schaakkoning!",
+  "🎊 Hoera! Goed gedaan!",
+  "🌈 Magnifiek!",
+  "🏅 Je bent een ster!",
+  "👑 Koninklijke zet!",
+  "🎮 Level up!",
+];
+
+const MISTAKE_QUOTES = [
+  "🤔 Bijna! Probeer het nog eens!",
+  "💭 Denk nog even na...",
+  "🔍 Kijk nog eens goed!",
+  "🧩 Dat was niet helemaal goed, maar je kunt het!",
+  "🌱 Van fouten leer je!",
+  "💪 Niet opgeven! Je kunt het!",
+  "🎯 Net niet, probeer opnieuw!",
+  "🤓 Hmm, welke zet geeft schaakmat?",
+  "🌟 Je bent er bijna!",
+  "🔄 Nog een keer proberen!",
+  "🧠 Gebruik je slimme hoofd!",
+  "🎪 Oeps! Nog een poging!",
+];
+
+function showQuote(isSuccess) {
+  const quotes = isSuccess ? SUCCESS_QUOTES : MISTAKE_QUOTES;
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  const toast = document.getElementById("quote-toast");
+  const text = document.getElementById("quote-text");
+
+  if (toast && text) {
+    text.textContent = quote;
+    toast.className = isSuccess
+      ? "fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-sm font-bold shadow-lg transition-all duration-300 z-50 bg-fun-green text-white"
+      : "fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-sm font-bold shadow-lg transition-all duration-300 z-50 bg-fun-yellow text-slate-800";
+    toast.style.opacity = "1";
+    toast.style.transform = "translateX(-50%) translateY(0)";
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(-50%) translateY(-16px)";
+    }, 2500);
+  }
+}
+
 let url_parameters = getUrlParameters();
 
 const TOTAL_PROBLEMS = 4462;
@@ -69,17 +124,8 @@ function pushState(problemId) {
   }
 }
 
-function showHint() {
-  const { source, target } = parse_move(correct_moves[0]);
-  board.removeMarkers(MARKER_TYPE.framePrimary);
-  board.addMarker(MARKER_TYPE.framePrimary, source);
-  board.addMarker(MARKER_TYPE.framePrimary, target);
-}
-
 function inputHandler(event) {
   if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
-    // Remove any hint markers when starting a move
-    board.removeMarkers(MARKER_TYPE.framePrimary);
     return true;
   } else if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
     const src = event.squareFrom;
@@ -89,6 +135,8 @@ function inputHandler(event) {
       return false;
     }
 
+    // Show mistake quote for wrong moves (will be shown if we return false)
+
     const { source, target, promotion } = parse_move(correct_moves[0]);
 
     if (correct_moves.length === 1) {
@@ -97,6 +145,7 @@ function inputHandler(event) {
       const moveResult = sim_game.move({ from: src, to: tgt, promotion });
 
       if (!moveResult || !sim_game.in_checkmate()) {
+        showQuote(false);
         return false;
       } else {
         game.move({ from: src, to: tgt, promotion });
@@ -107,6 +156,7 @@ function inputHandler(event) {
     } else {
       // Not last move - must match exactly
       if (src !== source || tgt !== target) {
+        showQuote(false);
         return false;
       }
       game.move({ from: source, to: target, promotion });
@@ -122,10 +172,23 @@ function inputHandler(event) {
 }
 
 function onPuzzleSolved() {
-  document.getElementById("hint-btn").style.display = "none";
   document.getElementById("next-btn").style.display = "";
   document.querySelector("#next-btn").onclick = next_problem;
-  document.querySelector("#problem-title").innerHTML = document.querySelector("#problem-title").innerHTML.split("-")[0] + " - Solved!";
+
+  // Update title with solved state (Dutch)
+  const titleParts = document.querySelector("#problem-title").innerHTML.split(" · ");
+  document.querySelector("#problem-title").innerHTML = titleParts[0] + ' · <span class="text-success-600 success-badge inline-block">✓ Opgelost!</span>';
+
+  // Show success quote
+  showQuote(true);
+
+  // Add celebration effect to board
+  const boardWrapper = document.getElementById("board-wrapper");
+  if (boardWrapper) {
+    boardWrapper.classList.add("solved-celebration");
+    setTimeout(() => boardWrapper.classList.remove("solved-celebration"), 500);
+  }
+
   board.disableMoveInput();
 }
 
@@ -135,35 +198,27 @@ document.body.onkeydown = function(e) {
     return;
   }
 
-  e.preventDefault();
+  // Only handle specific keys, let browser shortcuts through
+  if (e.code === "Space" || e.code === "ArrowRight" || e.code === "ArrowLeft") {
+    e.preventDefault();
 
-  // If the game is in checkmate and space is pressed, go to the next problem.
-  if (game && game.in_checkmate() && (e.key === " " || e.code === "Space")) {
-    next_problem();
-    return;
-  }
-
-  if (e.key === " " || e.code === "Space") {
-    showHint();
-  }
-
-  if (e.code === "ArrowRight") {
-    next_problem();
-  }
-
-  if (e.code === "ArrowLeft") {
-    previous_problem();
+    if (e.code === "Space" && game && game.in_checkmate()) {
+      next_problem();
+    } else if (e.code === "ArrowRight") {
+      next_problem();
+    } else if (e.code === "ArrowLeft") {
+      previous_problem();
+    }
   }
 };
 
 function next(problem = problems[0], useAnimation = true) {
-  board.removeMarkers(MARKER_TYPE.framePrimary);
   document.getElementById("next-btn").style.display = "none";
-  document.getElementById("hint-btn").style.display = "";
   currentProblemId = problem.problemid;
   localStorage.setItem(STORAGE_KEY, currentProblemId);
-  const problem_type = `Checkm${problem.type.slice(1)} Move${problem.type.endsWith("One") ? "" : "s"}`;
-  var problem_title = `#${problem.problemid} ${problem_type} - ${problem.first}`;
+  const moveCount = problem.type.endsWith("One") ? "1" : problem.type.match(/\d+/)?.[0] || "";
+  const moveIndicator = problem.first === "White to Move" ? "Wit" : "Zwart";
+  var problem_title = `<span class="text-slate-400">#${problem.problemid}</span> Mat in ${moveCount} · <span class="text-accent-blue">${moveIndicator}</span>`;
   document.title = `#${problem.problemid}`;
   document.querySelector("#problem-title").innerHTML = problem_title;
   document.querySelector("#problem-input").value = problem.problemid;
@@ -174,8 +229,6 @@ function next(problem = problems[0], useAnimation = true) {
   // Determine which color moves first
   const turnColor = game.turn() === 'w' ? COLOR.white : COLOR.black;
   board.enableMoveInput(inputHandler, turnColor);
-
-  document.querySelector("#hint-btn").onclick = showHint;
 }
 
 function getInitialProblem() {

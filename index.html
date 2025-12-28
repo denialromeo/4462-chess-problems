@@ -1,23 +1,202 @@
 <!doctype html>
-<html>
-    <head>
-        <title>Chess Puzzle Player</title>
-    </head>
-    <body>
-        <center>
-        <h2 id="problem-title" style="font-family:Helvetica"></h2>
-        <div id="board" style="width:436px;max-width:100%"></div>
-        <br>
-        <input type="button" id="hint-btn" value="Hint" />
-        <input type="button" id="next-btn" style="display:none" value="Next" />
-        <br><br>
-        <div style="font-family:Helvetica">
-            <label for="problem-input">Go to problem:</label>
-            <input type="number" id="problem-input" min="1" max="4462" style="width:60px" />
-            <input type="button" id="go-btn" value="Go" />
-        </div>
-        </center>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Puzzle Player</title>
 
-        <script src="dist/chess-puzzle-player.HASH.js"></script>
-    </body>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FFFDF7',
+                            100: '#FFF9E6',
+                            200: '#FFF3D0',
+                            300: '#FFE9B0',
+                            400: '#FFD580',
+                        },
+                        slate: {
+                            650: '#475569',
+                        },
+                        success: {
+                            50: '#ECFDF5',
+                            100: '#D1FAE5',
+                            500: '#10B981',
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        accent: {
+                            blue: '#6366F1',
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                            orange: '#F97316',
+                        },
+                        fun: {
+                            yellow: '#FBBF24',
+                            green: '#34D399',
+                            blue: '#60A5FA',
+                            red: '#F87171',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['"Source Serif 4"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'slide-up': 'slideUp 0.4s ease-out forwards',
+                        'bounce-subtle': 'bounceSubtle 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(16px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.02)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3F0EB;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4CFC5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B8B3A9;
+        }
+
+        /* Board container shadow */
+        .board-shadow {
+            box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.07),
+                0 10px 20px -5px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Input focus ring */
+        .input-chess:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            border-color: #3B82F6;
+        }
+
+        /* Solved state celebration */
+        .solved-celebration {
+            animation: celebratePulse 0.5s ease-out;
+        }
+        @keyframes celebratePulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            100% { box-shadow: 0 0 30px 8px rgba(34, 197, 94, 0); }
+        }
+
+        /* Stagger animations */
+        .stagger-1 { animation-delay: 0.05s; }
+        .stagger-2 { animation-delay: 0.1s; }
+        .stagger-3 { animation-delay: 0.15s; }
+        .stagger-4 { animation-delay: 0.2s; }
+
+        /* Override cm-chessboard default styles */
+        .cm-chessboard .board {
+            border-radius: 6px;
+        }
+
+        /* Success badge animation */
+        .success-badge {
+            animation: badgePop 0.3s ease-out;
+        }
+        @keyframes badgePop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-cream-100 min-h-screen font-sans text-slate-700 antialiased overflow-hidden">
+
+    <!-- Main Container -->
+    <main class="h-screen flex flex-col items-center justify-center p-2 md:p-4">
+
+        <!-- Board Container - scales to screen -->
+        <div class="flex-1 flex items-center justify-center w-full max-h-[calc(100vh-140px)] opacity-0 animate-fade-in">
+            <div id="board-wrapper" class="bg-white p-2 md:p-3 rounded-2xl board-shadow aspect-square max-w-full max-h-full" style="width: min(calc(100vh - 160px), calc(100vw - 32px));">
+                <div id="board" class="w-full h-full"></div>
+            </div>
+        </div>
+
+        <!-- Motivational quote toast -->
+        <div id="quote-toast" class="fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-sm font-semibold shadow-lg transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none z-50">
+            <span id="quote-text"></span>
+        </div>
+
+        <!-- Bottom bar: title + controls -->
+        <div class="w-full max-w-xl px-2 pb-3 pt-2 opacity-0 animate-slide-up stagger-1">
+            <!-- Title -->
+            <h1 id="problem-title" class="text-center font-sans text-base md:text-lg font-bold text-slate-700 mb-2">
+                Laden...
+            </h1>
+
+            <!-- Controls row -->
+            <div class="flex items-center justify-center gap-2 flex-wrap">
+                <!-- Next button -->
+                <button
+                    id="next-btn"
+                    style="display:none"
+                    class="px-4 py-2 bg-fun-green hover:bg-emerald-400 text-white rounded-full font-bold text-xs shadow-sm hover:shadow-md transition-all duration-200"
+                >
+                    <span class="flex items-center gap-1.5">
+                        Volgende 🎯
+                    </span>
+                </button>
+
+                <!-- Navigation -->
+                <div class="flex items-center gap-1.5">
+                    <span class="text-slate-500 text-xs font-medium">Puzzel</span>
+                    <input
+                        type="number"
+                        id="problem-input"
+                        min="1"
+                        max="4462"
+                        class="input-chess w-14 px-2 py-1.5 bg-white border-2 border-cream-300 rounded-full text-slate-700 text-xs text-center font-bold transition-all duration-200"
+                        placeholder="1"
+                    />
+                    <button
+                        id="go-btn"
+                        class="px-3 py-1.5 bg-accent-purple hover:bg-purple-600 rounded-full text-white text-xs font-bold transition-all duration-200"
+                    >
+                        Ga!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="dist/chess-puzzle-player.HASH.js"></script>
+</body>
 </html>
